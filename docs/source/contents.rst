@@ -19,6 +19,13 @@ Contents
 
 .. toctree::
     :maxdepth: 1
+    :caption: Week 08 Synchronous Tutorial
+
+    week08_tut_intro
+    week08_tut_gazeboxacro
+    
+.. toctree::
+    :maxdepth: 1
     :caption: Week 10 Synchronous Tutorial
 
     week10_tut_intro

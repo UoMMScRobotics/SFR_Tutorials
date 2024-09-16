@@ -9,4 +9,4 @@ Conclusion
 - Additional information is available for simulations, such as Collisional and Inertial properties
 - All these properties can be viewed in RVIZ
 
-A topic which was not covered here was the use of **xacro**.  This functionality enables a urdf to have variables and include other files, this generally makes them easier to edit and easier to read.
+A topic which was not covered here was the use of `**xacro** <https://github.com/ros/xacro/wiki>`_.  This functionality enables a urdf to have variables and include other files, this generally makes them easier to edit and easier to read.
