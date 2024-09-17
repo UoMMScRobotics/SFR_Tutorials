@@ -26,6 +26,8 @@ You should be greeted with a welcome screen like the one above.  If not, use the
 
 YOu can then check the installation with ``ign gazebo`` in the terminal as shown above.
 
+Need to add ``export IGN_IP=127.0.0.1`` to .bashrc file.
+
 
 .. WARNING::
     Nearly all tutorials you will find online are specifically for **Gazebo Classic** - we are at the cutting edge using Gazebo Sim/Ignition Gazebo.  Even the official documentation is pretty sparse.
