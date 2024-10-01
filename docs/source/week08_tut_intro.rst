@@ -21,12 +21,11 @@ You should be greeted with a welcome screen like the one above.  If not, use the
 
 .. code-block:: console
     
-    sudo apt install ros-humble-simulation
     sudo apt install ros-humble-desktop-full
 
-YOu can then check the installation with ``ign gazebo`` in the terminal as shown above.
+You can then check the installation with ``ign gazebo`` in the terminal as shown above.
 
-Need to add ``export IGN_IP=127.0.0.1`` to .bashrc file.
+.. Need to add ``export IGN_IP=127.0.0.1`` to .bashrc file.
 
 
 .. WARNING::
@@ -37,7 +36,7 @@ Need to add ``export IGN_IP=127.0.0.1`` to .bashrc file.
     \*Students using it last year and submitting horrible broken code
 
 
-Using the .urdf files we made previously (see :doc: `Week 07 <../week07_tut_intro>`), we need to add some additional code to tell gazebo how things work.
+Using the .urdf files we made previously (see :doc:`Week 07 <../week07_tut_intro>`), we need to add some additional code to tell gazebo how things work.
 
 
 Setup the ROS Package

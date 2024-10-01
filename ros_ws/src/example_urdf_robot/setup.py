@@ -14,7 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         # Include URDF (.urdf) files
         (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.urdf')) + glob(os.path.join('urdf', '*.xacro'))),
-	# Include mesh (.stl) files
+	    # Include mesh (.stl) files
         (os.path.join('share', package_name, 'meshes'), glob(os.path.join('meshes', '*.stl'))),
         # Include world (.sdf or .dae) files
         (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '**/**.[sd][da][fe]'), recursive=True)),
