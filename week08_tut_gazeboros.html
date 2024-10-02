@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linking Gazebo and ROS2 &mdash; Software for Robotics Tutorials  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/theme_mods.css?v=a1f80f96" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conclusion" href="week08_tut_conclusion.html" />
+    <link rel="prev" title="Adding Simulation Properties" href="week08_tut_gazeboxacro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="contents.html" class="icon icon-home">
+            Software for Robotics Tutorials
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Welcome</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Software for Robotics Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 07 Synchronous Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="week07_tut_intro.html">Describing Robots using URDF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week07_tut_joints.html">Adding Joints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week07_tut_links.html">Adding Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week07_tut_collisions.html">Adding Collisions and Inertia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week07_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 08 Synchronous Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="week08_tut_intro.html">Setting Up a Simulation in Gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboxacro.html">Adding Simulation Properties</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Linking Gazebo and ROS2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introspection-of-the-gazebo-simulation">Introspection of the Gazebo Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#checking-gazebo-topics">Checking Gazebo Topics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bridge-between-gazebo-and-ros2">Bridge Between Gazebo and ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-ros-functionality">Using ROS Functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utilising-other-ros2-tools-rviz">Utilising Other ROS2 Tools - RVIZ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="week08_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 10 Synchronous Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="week10_tut_intro.html">Autonomous Navigation Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week10_tut_pathplan.html">Adding Path Planning from Nav2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week10_tut_controller.html">Adding a Controller from Nav2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week10_tut_commands.html">Sending Goals to the Robot Navigation Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week10_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 11 Synchronous Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="week11_tut_intro.html">Behaviour Trees Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week11_tut_groot.html">Investigating Behaviour Trees with Groot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week11_tut_simplebt.html">Building a Behaviour Tree with Groot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week11_tut_usingsimplebt.html">Using a Custom Behaviour Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week11_tut_addreplanning.html">Adding Replanning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week11_tut_conclusion.html">Conclusion</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Software for Robotics Tutorials</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="contents.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Linking Gazebo and ROS2</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="linking-gazebo-and-ros2">
+<h1>Linking Gazebo and ROS2<a class="headerlink" href="#linking-gazebo-and-ros2" title="Permalink to this heading"></a></h1>
+<p>This portion of the tutorial will guide you through how to connect the simulation to ROS.  This is the same for any simulation engine you might want to use (<a class="reference external" href="https://youtu.be/Ar0Ns4gVKME?feature=shared">Unreal</a>, <a class="reference external" href="https://unity.com/blog/engine-platform/advance-your-robot-autonomy-with-ros-2-and-unity">Unity</a>, <a class="reference external" href="https://nvidia-isaac-ros.github.io/getting_started/isaac_sim/index.html">IsaacSim</a>)</p>
+<section id="introspection-of-the-gazebo-simulation">
+<h2>Introspection of the Gazebo Simulation<a class="headerlink" href="#introspection-of-the-gazebo-simulation" title="Permalink to this heading"></a></h2>
+<p>Open a terminal with <code class="docutils literal notranslate"><span class="pre">Ctrl+Alt+T</span></code> and start a simulation containing the robot described by the xacro files covered so far:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~/&lt;YOUR_ROS_WORKSPACE&gt;</span>
+<span class="go">colcon build --packages-select example_urdf_robot</span>
+<span class="go">ros2 launch example_urdf_robot sim_robot.launch.py</span>
+</pre></div>
+</div>
+<p>There will be two windows which open, Gazebo and RVIZ.  We will focus on Gazebo for the moment and return to RVIZ later.  The simulation should look similar to the image below.</p>
+<a class="reference internal image-reference" href="_images/IgnGazebo_robotsim.png"><img alt="Gazebo simulation with example diff drive robot." class="align-center" src="_images/IgnGazebo_robotsim.png" style="width: 800px;" /></a>
+<section id="checking-gazebo-topics">
+<h3>Checking Gazebo Topics<a class="headerlink" href="#checking-gazebo-topics" title="Permalink to this heading"></a></h3>
+<p>With the simulation successfully running, start a fresh terminal with <code class="docutils literal notranslate"><span class="pre">Ctrl+Alt+T</span></code> (alternatively the shortcut <code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+T</span></code> to make a new tab, or use <a class="reference external" href="https://ros2-tutorial.readthedocs.io/en/latest/terminator.html">terminator</a>), then run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ign topic --list</span>
+</pre></div>
+</div>
+<p>The result should look similar to the picture below.</p>
+<a class="reference internal image-reference" href="_images/ign_topics.png"><img alt="Gazebo simulation topics." class="align-center" src="_images/ign_topics.png" style="width: 800px;" /></a>
+<p>From the differential drive controller, the <code class="docutils literal notranslate"><span class="pre">/model/diff_drive_example/odometry</span></code> and <code class="docutils literal notranslate"><span class="pre">/model/diff_drive_example/cmd_vel</span></code> topics are present.  The joint state publisher is providing the <code class="docutils literal notranslate"><span class="pre">/model/diff_drive_example/joint_state</span></code> topic and it’s information.  The <code class="docutils literal notranslate"><span class="pre">/model/diff_drive_example/scan</span></code> and <code class="docutils literal notranslate"><span class="pre">/model/diff_drive_example/imu</span></code> topics are provided by the lidar and imu sensor respectively.</p>
+<p>A quick echo in the terminal can show that data is being produced by the simulation.  For example, try the command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ign topic --echo --topic /model/diff_drive_example/odometry</span>
+</pre></div>
+</div>
+<p>The terminal should then respond with the pose and twist of the robot between the odom and base_footprint frames (the robot has not moved anywhere and is stationary, these should be approximately 0).  Press <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> to stop this output.</p>
+<p>It is also possible to publish topics directly.  Try moving the robot with a terminal command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ign topic --pub &quot;linear {x:0.5}&quot; --topic /model/diff_drive_example/cmd_vel --msgtype ignition.msgs.Twist</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Did it work? <code class="code docutils literal notranslate"><span class="pre">if(works){celebrate()}else{double_check_everything()}</span></code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don’t forget to stop the robot!</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ign topic --pub &quot;linear {x:0.0}&quot; --topic /model/diff_drive_example/cmd_vel --msgtype ignition.msgs.Twist</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="bridge-between-gazebo-and-ros2">
+<h2>Bridge Between Gazebo and ROS2<a class="headerlink" href="#bridge-between-gazebo-and-ros2" title="Permalink to this heading"></a></h2>
+<p>Right now, using the terminal to send commands to the robot is pretty rubbish, we want to leverage the power of the Robot Operating Sytem!</p>
+<p>To enable this, we need to “bridge” between gazebo and ROS.  This is acheived via the <code class="docutils literal notranslate"><span class="pre">ros_gz_bridge</span></code> package.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sim_robot.launch.py</span></code> file shows how this is done.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">72</span><span class="w">    </span>#<span class="w"> </span>Bridge
+<span class="linenos">73</span><span class="w">    </span>#<span class="w"> </span>https://github.com/gazebosim/ros_gz/tree/humble/ros_gz_bridge
+<span class="linenos">74</span><span class="w">    </span>node_ros_gz_bridge<span class="w"> </span>=<span class="w"> </span>Node(
+<span class="linenos">75</span><span class="w">        </span>package=&#39;ros_gz_bridge&#39;,
+<span class="linenos">76</span><span class="w">        </span>executable=&#39;parameter_bridge&#39;,
+<span class="linenos">77</span><span class="w">        </span>arguments=<span class="w">  </span>[
+<span class="linenos">78</span><span class="w">                    </span>&#39;/clock&#39;<span class="w">                           </span>+<span class="w"> </span>&#39;@rosgraph_msgs/msg/Clock&#39;<span class="w">   </span>+<span class="w"> </span>&#39;[&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.Clock&#39;,
+<span class="linenos">79</span><span class="w">                    </span>&#39;/model/diff_drive_example/cmd_vel&#39;<span class="w">  </span>+<span class="w"> </span>&#39;@geometry_msgs/msg/Twist&#39;<span class="w">   </span>+<span class="w"> </span>&#39;@&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.Twist&#39;,
+<span class="linenos">80</span><span class="w">                    </span>&#39;/model/diff_drive_example/odometry&#39;<span class="w"> </span>+<span class="w"> </span>&#39;@nav_msgs/msg/Odometry&#39;<span class="w">     </span>+<span class="w"> </span>&#39;[&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.Odometry&#39;,
+<span class="linenos">81</span><span class="w">                    </span>&#39;/model/diff_drive_example/scan&#39;<span class="w">     </span>+<span class="w"> </span>&#39;@sensor_msgs/msg/LaserScan&#39;<span class="w"> </span>+<span class="w"> </span>&#39;[&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.LaserScan&#39;,
+<span class="linenos">82</span><span class="w">                    </span>&#39;/model/diff_drive_example/tf&#39;<span class="w">       </span>+<span class="w"> </span>&#39;@tf2_msgs/msg/TFMessage&#39;<span class="w">    </span>+<span class="w"> </span>&#39;[&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.Pose_V&#39;,
+<span class="linenos">83</span><span class="w">                    </span>&#39;/model/diff_drive_example/imu&#39;<span class="w">      </span>+<span class="w"> </span>&#39;@sensor_msgs/msg/Imu&#39;<span class="w">       </span>+<span class="w"> </span>&#39;[&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.IMU&#39;,
+<span class="linenos">84</span><span class="w">                    </span>&#39;/model/diff_drive_example/joint_state&#39;<span class="w"> </span>+<span class="w"> </span>&#39;@sensor_msgs/msg/JointState&#39;<span class="w"> </span>+<span class="w"> </span>&#39;[&#39;<span class="w"> </span>+<span class="w"> </span>&#39;ignition.msgs.Model&#39;,
+<span class="linenos">85</span><span class="w">                    </span>],
+<span class="linenos">86</span><span class="w">        </span>parameters=<span class="w"> </span>[{&#39;qos_overrides./diff_drive_example.subscriber.reliability&#39;:<span class="w"> </span>&#39;reliable&#39;}],
+<span class="linenos">87</span><span class="w">        </span>remappings=<span class="w"> </span>[
+<span class="linenos">88</span><span class="w">                    </span>(&#39;/model/diff_drive_example/cmd_vel&#39;,<span class="w">  </span>&#39;/cmd_vel&#39;),
+<span class="linenos">89</span><span class="w">                    </span>(&#39;/model/diff_drive_example/odometry&#39;,<span class="w"> </span>&#39;/odom&#39;<span class="w">   </span>),
+<span class="linenos">90</span><span class="w">                    </span>(&#39;/model/diff_drive_example/scan&#39;,<span class="w">     </span>&#39;/scan&#39;<span class="w">   </span>),
+<span class="linenos">91</span><span class="w">                    </span>(&#39;/model/diff_drive_example/tf&#39;,<span class="w">       </span>&#39;/tf&#39;<span class="w">     </span>),
+<span class="linenos">92</span><span class="w">                    </span>(&#39;/model/diff_drive_example/imu&#39;,<span class="w">      </span>&#39;/imu_raw&#39;),
+<span class="linenos">93</span><span class="w">                    </span>(&#39;/model/diff_drive_example/joint_state&#39;,<span class="w"> </span>&#39;joint_states&#39;)
+<span class="linenos">94</span><span class="w">                    </span>],
+<span class="linenos">95</span><span class="w">        </span>output=&#39;screen&#39;
+<span class="linenos">96</span><span class="w">    </span>)
+</pre></div>
+</div>
+<p>The bridge can provide one-way (unidirectional) or two-way (bidirectional) sharing of topics between ROS and Gazebo.  The arguments are written as follows:</p>
+<p>The list of mapping from ROS msg to ignition msg can be found <a class="reference external" href="https://github.com/gazebosim/ros_gz/tree/humble/ros_gz_bridge">here</a>.  Note that going forward, ignition.msg.Type will become gz.msg.Type for future Gazebo versions - this is likely what you might see in any very up-to-date tutorials.</p>
+<p>The direction is declared with <code class="docutils literal notranslate"><span class="pre">[</span></code> ROS&lt;-GZ (Gazbeo “publishes” into ROS), <code class="docutils literal notranslate"><span class="pre">[</span></code> ROS-&gt;GZ (ROS “publishes” into Gazebo), and <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> ROS&lt;-&gt;GZ (both can publish into each other).  Using a unidirectional approach saves on bandwidth.</p>
+<p>The line <code class="docutils literal notranslate"><span class="pre">'/model/gz_example_robot/odometry'</span> <span class="pre">+</span> <span class="pre">'&#64;nav_msgs/msg/Odometry'</span>&#160;&#160;&#160;&#160; <span class="pre">+</span> <span class="pre">'['</span> <span class="pre">+</span> <span class="pre">'ignition.msgs.Odometry'</span></code>, therefore translates to a single combined string <code class="docutils literal notranslate"><span class="pre">'/model/gz_example_robot/odometry&#64;nav_msgs/msg/Odometry[ignition.msgs.Odometry'</span></code>, where odometry from gazebo is pushed into a ROS topic, but not the other way around.</p>
+<p>The “remappings” decide what the topics names will be in ROS (e.g. just <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>).</p>
+</section>
+<section id="using-ros-functionality">
+<h2>Using ROS Functionality<a class="headerlink" href="#using-ros-functionality" title="Permalink to this heading"></a></h2>
+<p>As a trivial example, let’s use ROS to publish twist commands to the simulation, mimicking the topics and input for a real robot.</p>
+<p>In an available terminal (start a fresh terminal with <code class="docutils literal notranslate"><span class="pre">Ctrl+Alt+T</span></code> if necessary), run the teleop_twist_keyboard node from the teleop_twist_keyboard package using:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 run teleop_twist_keyboard teleop_twist_keyboard</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Please note, you will need this terminal to be the active window to accept keyboard inputs.</p>
+<a class="reference internal image-reference" href="_images/teleop_gazebo.png"><img alt="Using ROS teleop_twist_keyboard to control a robot in a Gazebo simulation." class="align-center" src="_images/teleop_gazebo.png" style="width: 800px;" /></a>
+<p>As the robot is non-holnomic, do not press the shift key.  By pressing <code class="docutils literal notranslate"><span class="pre">u</span></code> the robot will move forward in a positive yaw arc, and <em>should</em> return to roughly where it started.  Play around with the controls to convince yourself there is a connection between ROS topics and the simulation.</p>
+</section>
+<section id="utilising-other-ros2-tools-rviz">
+<h2>Utilising Other ROS2 Tools - RVIZ<a class="headerlink" href="#utilising-other-ros2-tools-rviz" title="Permalink to this heading"></a></h2>
+<p>Add some shapes to the simulation, to give the lidar various surfaces to measure in the scene.  This can be achieved by using the box or cylinder buttons at the top left of the Gazebo window (see the image below).  Press the button (e.g. box) and then move your cursor around to place the shape on the ground plane.</p>
+<a class="reference internal image-reference" href="_images/gazebo_shapes.png"><img alt="Adding boxes to an empty world in Gazebo using GUI tools." class="align-center" src="_images/gazebo_shapes.png" style="width: 800px;" /></a>
+<p>Open RVIZ and make changes to the following settings in the left hand “Displays” panel:</p>
+<ol class="arabic simple">
+<li><p>Change Global Options -&gt; Fixed Frame to <em>odom</em></p></li>
+<li><p>Add -&gt; By Display Type -&gt; RobotModel</p></li>
+<li><p>Change Robot Model -&gt; Description Topic  to  <em>/robot_description</em> in drop-down menu</p></li>
+<li><p>Add -&gt; By Topic -&gt; /scan</p></li>
+<li><p>Change Laser Scan -&gt; Size (m) to <em>0.05</em></p></li>
+</ol>
+<p>It should now be possible to view the readings from the lidar, along side a representation of the physical robot similar to the image below:</p>
+<a class="reference internal image-reference" href="_images/rviz_gazebo_sim.png"><img alt="Visualising a differential drive robot with lidar from a Gazebo simulation in RVIZ." class="align-center" src="_images/rviz_gazebo_sim.png" style="width: 800px;" /></a>
+<p>Though we are using RVIZ to demonstrate how ROS packages can be leveraged, now the Gazebo simulation is talking to ROS any package available to us can be utilised.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week08_tut_gazeboxacro.html" class="btn btn-neutral float-left" title="Adding Simulation Properties" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week08_tut_conclusion.html" class="btn btn-neutral float-right" title="Conclusion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Andy West.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
