@@ -23,6 +23,8 @@ Contents
 
     week08_tut_intro
     week08_tut_gazeboxacro
+    week08_tut_gazeboros
+    week08_tut_conclusion
     
 .. toctree::
     :maxdepth: 1
@@ -46,8 +48,8 @@ Contents
     week11_tut_conclusion
 
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Continuous Assessment Tutorials
+.. .. toctree::
+..     :maxdepth: 2
+..     :caption: Continuous Assessment Tutorials
 
-    week09_ca
+..     week09_ca

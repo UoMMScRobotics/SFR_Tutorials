@@ -4,7 +4,7 @@ Setting Up a Simulation in Gazebo
 The term "Gazebo" will be used to reference the Fortress version of `Ignition Gazebo <https://gazebosim.org/home>`_ which ships with ROS2 Humble.  Though technically it should be referred to as "Ignition Gazebo", who really cares?  The newer versions of Gazebo Sim have dropped the ignition branding, and the "old" verison of Gazebo is known as Gazebo Classic.
 
 Check Gazebo is installed
-~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 .. image:: ../../figures/week08/IgnGazebo_WelcomeScreen.png
     :width: 800
@@ -44,7 +44,10 @@ Setup the ROS Package
 
 Typically, for a robot there would be a ``<packagename>_description`` package (like the example_urdf_description from Week 07) which works with real and simulated versions, and a ``<packagename>_sim`` or ``<packagename>_gazebo`` package.
 
-However, for convenience we will roll it all into one package called ``example_urdf_robot``.  To save time, a package has already been prepared - download it, extract it, and add it to your ros workspace.
+However, for convenience we will roll it all into one package called ``example_urdf_robot``.  To save time, a package has already been prepared as a zip file |example_urdf_robot.zip| - download it, extract it, and add it to your ros workspace.
+
+.. |example_urdf_robot.zip| replace::
+   :download:`example_urdf_robot.zip <../../ros_ws/src/example_urdf_robot.zip>`
 
 This package includes a ``diff_drive.urdf.xacro`` file which will be focus of the next tasks.
 

@@ -7,7 +7,7 @@ This is also the case for real robots!  Manipulators for example often need an a
 
 
 Adding Gazebo Information
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 At the bottom of ``/urdf/diff_drive.urdf.xacro``, on line 213 we include another file called ``/urdf/example_gazebo.xacro``.  To make things easier to read, this will contain all the necessary components for simulation.
 
@@ -114,7 +114,7 @@ Gazebo offers a range of sensors which can be included in simulation.  Note that
 Sensors must be attached to a coordinate frame using the ``<frame_id>``.  For sensors such as cameras or lidars, usually there exists an link defined in the URDF.  However, for sensors such as an IMU these are arbitrarily attached to the robot chassis without the need for a specific link.  Sensors also need an ``<update_rate>`` tag to state how often they will publish data.
 
 Lidar
-~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 .. literalinclude:: ../../ros_ws/src/example_urdf_robot/urdf/example_gazebo.xacro
     :language: xml
@@ -129,7 +129,7 @@ The individual lines will not be discussed in detail, but this offers you an exa
 
 
 IMU
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 Inertial measurement units are ubiquitous, therefore, it is expected that nearly all mobile robots will have one (less so for manipulators).
 
