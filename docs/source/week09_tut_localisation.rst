@@ -58,6 +58,40 @@ Run the launch file with,
 
 Once everything has loaded, you will immediately notice that the robot has not been localised in the map at all!  This is because AMCL needs an initial guess, published on the ``/initialpose`` topic, consisting of a geometry_msgs/msg/PoseWithCovarianceStamped.
 
-It is diffcult to figure out the coordinates and orientation of the robot in the terminal.  RViz offers a helpful ``2D Pose Estimate`` button, this allows us to put an arrow down approximately where the robot is.
+It is diffcult to figure out the coordinates and orientation of the robot in the terminal.  RViz offers a helpful ``2D Pose Estimate`` button, this allows us to put a large green arrow down approximately where the robot is, and set the orientation.  This can be performed multiple times and AMCL will take a new guess each time, just in case the estimates are poor.
+
+.. list-table::
+   :width: 100%
+   :class: borderless
+
+   * - .. image:: ../../figures/week09/localisation_pose_estimate.png
+          :width: 100%
+          :alt: Using the 2D Pose Estimate button in RViz.
+          :align: center
+         
+     - .. image:: ../../figures/week09/initial_amcl.png
+          :width: 100%
+          :alt: The uncertain initial pose estimate by AMCL
+          :align: center
+
+The image to the right shows the estimate of the robot's pose given by AMCL, along with the lidar scan in red.  The cluster of green arrows are a visualisation of the particle filter at work.  For the initial guess, the spread of candidate points is large, but as the robot moves around, the localisation estimate will generally improve.
 
 
+Improve the Localisation Estimate
+----------------------------------
+
+This portion will have you drive the robot around and observe the improvement (or possible degradation) of the estimated robot pose.  In a terminal window, use the command
+
+.. code-block:: console
+    
+    ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+.. DANGER::
+    
+    Pay attention to the lidar scan, and use that to avoid any obstacles.  The estimate of the robot pose in the map may be poor, so you can not rely on it.  The lidar scan will be relative to the robot, so should always be a good indicator of an imminent collision.
+
+
+
+Drive the robot around, and the cluster of green arrows should become more tightly packed together.  This is a visual representation of the confidence in the estimate increasing.  However, you may still notice the odd arrow in certain places, particularly around the central pillars where it might be difficult to distinguish between different pillars.  A clear indication of better localisation comes from the lidar scan, which should overlay very well with the map.
+
+Once you are happy you have witnessed the power of particle filters for localisation, stop all processes with ``Ctrl+C``, close all terminals, and move on to the next section.
