@@ -75,8 +75,8 @@ The ``sim_robot.launch.py`` file shows how this is done.
 
 .. literalinclude:: ../../ros_ws/src/example_urdf_robot/launch/sim_robot.launch.py
     :language: xml
-    :lines: 72-96
-    :lineno-start: 72
+    :lines: 55-79
+    :lineno-start: 53
     :linenos:
 
 The bridge can provide one-way (unidirectional) or two-way (bidirectional) sharing of topics between ROS and Gazebo.  The arguments are written as follows:

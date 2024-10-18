@@ -36,7 +36,7 @@ This should look familiar from the last exercise.  It simply publishes the map a
 
 To actually provide the localisation, this exercise uses AMCL (`Adaptive Monte Carlo Localisation <http://wiki.ros.org/amcl>`_).  It uses scan matching to estimate the robot position based on the map and lidar scan data, however, the actual algorithm is an extension of the particle filter.
 
-The lifecycle manager once again makes life easier for us, ensuring that AMCL will not start without the map being published for it.
+The lifecycle manager once again makes life easier for us, ensuring that AMCL will not start without the map being published.
 
 .. literalinclude:: ../../ros_ws/src/example_gz_robot/launch/localisation.launch.py
     :language: xml
@@ -44,7 +44,7 @@ The lifecycle manager once again makes life easier for us, ensuring that AMCL wi
     :lineno-start: 54
     :linenos:
 
-Finally, we use RViz to see the map, the robot and sensor data.
+Finally, we use RViz to see the map, the robot, and sensor data.
 
 Using Localisation
 -----------------------
@@ -56,7 +56,7 @@ Run the launch file with,
     source ~/<YOUR_ROS_WS>/install/setup.bash
     ros2 launch example_gz_robot localisation.launch.py
 
-Once everything has loaded, you will immediately notice that the robot has not been localised in the map at all!  This is because AMCL needs an initial guess, published on the ``/initialpose`` topic, consisting of a geometry_msgs/msg/PoseWithCovarianceStamped.
+Once everything has loaded, you will immediately notice in RViz (and the terminal) that the robot has not been localised in the map at all!  This is because AMCL needs an initial guess, published on the ``/initialpose`` topic, consisting of a geometry_msgs/msg/PoseWithCovarianceStamped.
 
 It is diffcult to figure out the coordinates and orientation of the robot in the terminal.  RViz offers a helpful ``2D Pose Estimate`` button, this allows us to put a large green arrow down approximately where the robot is, and set the orientation.  This can be performed multiple times and AMCL will take a new guess each time, just in case the estimates are poor.
 
