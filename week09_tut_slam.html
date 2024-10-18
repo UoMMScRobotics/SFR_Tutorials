@@ -24,7 +24,9 @@
       <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conclusion" href="week09_tut_conclusion.html" />
+    <link rel="prev" title="Localisation in a Map" href="week09_tut_localisation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +52,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Software for Robotics Tutorials</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 07 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 07 | URDF</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_intro.html">Describing Robots using URDF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_joints.html">Adding Joints</a></li>
@@ -58,14 +60,26 @@
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_collisions.html">Adding Collisions and Inertia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 08 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 08 | Simulations</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_intro.html">Setting Up a Simulation in Gazebo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboxacro.html">Adding Simulation Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboros.html">Linking Gazebo and ROS2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 10 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 09 | Maps and SLAM</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_intro.html">Sensing and Perception for Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_maps.html">Maps and Occupancy Grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_localisation.html">Localisation in a Map</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SLAM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-launch-file">Running the Launch File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-slam-maps">Using SLAM Maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 10 | Autonomous Navigation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_intro.html">Autonomous Navigation Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_pathplan.html">Adding Path Planning from Nav2</a></li>
@@ -73,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_commands.html">Sending Goals to the Robot Navigation Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 11 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 11 | Behaviour Trees</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_intro.html">Behaviour Trees Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_groot.html">Investigating Behaviour Trees with Groot</a></li>
@@ -108,12 +122,99 @@
              
   <section id="slam">
 <h1>SLAM<a class="headerlink" href="#slam" title="Permalink to this heading"></a></h1>
+<p>Localisation in an existing map is great, but what about making a map?  A map could be generated from technical or architectural drawings, however, this is likely far more difficult compared to asking the robot to make the map for itself.</p>
+<p>Simultaneous Localisation and Mapping (SLAM) has the robot traverse an environment, making a map and localising itself in that map.  Much like the cartographers of old, exploring unknown seas and coastlines, map makers had to both figure out where they were, and make a map at the same time.</p>
+<p>There are various SLAM solutions available, however, the most accessible solutions utilise lidar and odometry.  Odometry for ground vehicles is typically the fusion of dead reckoning (also known as wheel odometry) and an inertial measurement unit (IMU).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>UAVs or aquatic vehicles, which can have external forces due to air/water currents, can’t use dead reckoning, furthermore, converting propeller speeds into a twist prediction is also unreliable.  The result is that only ground vehicles readily have a reliable estimate for odometry.  For robots without reliable odometry (e.g. UAVs), typically an inertial measurement unit (IMU) is fused with visual or lidar data for SLAM.  As the robot can move in three dimensions, a 2D map is replaced with a 3D representation specific to the algorthim.  Using visual SLAM can be more computationally expensive than lidar scanmatching, which is a potential bottleneck for autonomy on lightweight UAVs.</p>
+</div>
+<p>In this tutorial, <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox">SLAM Toolbox</a> will be used, as it is the default offering for Nav2 and is very well maintained.  More information can be found in the <a class="reference external" href="https://roscon.ros.org/2019/talks/roscon2019_slamtoolbox.pdf">slides to a ROSCon 2019</a> talk (or go watch it <a class="reference external" href="https://vimeo.com/378682207">on Vimeo</a>).</p>
+<section id="running-the-launch-file">
+<h2>Running the Launch File<a class="headerlink" href="#running-the-launch-file" title="Permalink to this heading"></a></h2>
+<p>The launch file is much more simple than previous localisation, as the two map + localisation nodes are replaced with a single SLAM node.  The simulation is started, followed by SLAM, and finally RViz is used to visualise the output.  On line 31, a config file for RViz has been passed.  This conveniently sets up the topics being visualised as well as any other settings such as the camera angle.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>import<span class="w"> </span>os
+<span class="linenos"> 2</span>from<span class="w"> </span>ament_index_python.packages<span class="w"> </span>import<span class="w"> </span>get_package_share_directory
+<span class="linenos"> 3</span>from<span class="w"> </span>launch<span class="w"> </span>import<span class="w"> </span>LaunchDescription
+<span class="linenos"> 4</span>from<span class="w"> </span>launch.actions<span class="w"> </span>import<span class="w"> </span>IncludeLaunchDescription
+<span class="linenos"> 5</span>from<span class="w"> </span>launch_ros.actions<span class="w"> </span>import<span class="w"> </span>Node,<span class="w"> </span>SetParameter
+<span class="linenos"> 6</span>from<span class="w"> </span>launch.launch_description_sources<span class="w"> </span>import<span class="w"> </span>PythonLaunchDescriptionSource
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>def<span class="w"> </span>generate_launch_description():
+<span class="linenos">10</span><span class="w">    </span>ld<span class="w"> </span>=<span class="w"> </span>LaunchDescription()
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="w">    </span>#<span class="w"> </span>Specify<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>package<span class="w"> </span>and<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>xacro<span class="w"> </span>file<span class="w"> </span>in<span class="w"> </span>external<span class="w"> </span>package
+<span class="linenos">13</span><span class="w">    </span>pkg_name<span class="w"> </span>=<span class="w"> </span>&#39;example_gz_robot&#39;
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">    </span>#<span class="w"> </span>Start<span class="w"> </span>simulation
+<span class="linenos">16</span><span class="w">    </span>launch_sim_world<span class="w"> </span>=<span class="w"> </span>IncludeLaunchDescription(
+<span class="linenos">17</span><span class="w">      </span>PythonLaunchDescriptionSource([os.path.join(
+<span class="linenos">18</span><span class="w">         </span>get_package_share_directory(pkg_name),<span class="w"> </span>&#39;launch&#39;),
+<span class="linenos">19</span><span class="w">         </span>&#39;/simulation_bringup.launch.py&#39;])
+<span class="linenos">20</span><span class="w">      </span>)
+<span class="linenos">21</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="w">    </span>#<span class="w"> </span>Start<span class="w"> </span>SLAM<span class="w"> </span>Toolbox<span class="w"> </span>with<span class="w"> </span>default<span class="w"> </span>parameters
+<span class="linenos">24</span><span class="w">    </span>launch_slam_toolbox<span class="w"> </span>=<span class="w"> </span>IncludeLaunchDescription(
+<span class="linenos">25</span><span class="w">      </span>PythonLaunchDescriptionSource([os.path.join(
+<span class="linenos">26</span><span class="w">         </span>get_package_share_directory(&#39;slam_toolbox&#39;),<span class="w"> </span>&#39;launch&#39;),
+<span class="linenos">27</span><span class="w">         </span>&#39;/online_async_launch.py&#39;])
+<span class="linenos">28</span><span class="w">      </span>)
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="w">    </span>#<span class="w"> </span>Rviz<span class="w"> </span>node
+<span class="linenos">31</span><span class="w">    </span>rviz_config_file<span class="w"> </span>=<span class="w"> </span>os.path.join(get_package_share_directory(pkg_name),<span class="w"> </span>&#39;rviz&#39;,<span class="w"> </span>&#39;slam.rviz&#39;)
+<span class="linenos">32</span><span class="w">    </span>node_rviz<span class="w"> </span>=<span class="w"> </span>Node(
+<span class="linenos">33</span><span class="w">        </span>package=&#39;rviz2&#39;,
+<span class="linenos">34</span><span class="w">        </span>namespace=&#39;&#39;,
+<span class="linenos">35</span><span class="w">        </span>executable=&#39;rviz2&#39;,
+<span class="linenos">36</span><span class="w">        </span>name=&#39;rviz2&#39;,
+<span class="linenos">37</span><span class="w">        </span>arguments=[&#39;-d&#39;,<span class="w"> </span>[rviz_config_file]]
+<span class="linenos">38</span><span class="w">    </span>)
+<span class="linenos">39</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span><span class="w">    </span>#<span class="w"> </span>Add<span class="w"> </span>actions<span class="w"> </span>to<span class="w"> </span>LaunchDescription
+<span class="linenos">42</span><span class="w">    </span>#<span class="w"> </span>Simulation
+<span class="linenos">43</span><span class="w">    </span>ld.add_action(SetParameter(name=&#39;use_sim_time&#39;,<span class="w"> </span>value=True))
+<span class="linenos">44</span><span class="w">    </span>ld.add_action(launch_sim_world)
+<span class="linenos">45</span><span class="w">    </span>#<span class="w"> </span>SLAM<span class="w"> </span>Toolbox
+<span class="linenos">46</span><span class="w">    </span>ld.add_action(launch_slam_toolbox)
+<span class="linenos">47</span><span class="w">    </span>#<span class="w"> </span>Visualisation
+<span class="linenos">48</span><span class="w">    </span>ld.add_action(node_rviz)
+<span class="linenos">49</span><span class="w">    </span>return<span class="w"> </span>ld
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default values have been used for SLAM Toolbox.  This includes topics for the laserscan, names of global and odometry frames, along with many tuning parameters.  When using the <code class="docutils literal notranslate"><span class="pre">async_slam_toolbox_node</span></code> directly, these parameters can be overridden with a custom .yaml file, or by passing parameters/reampping topics to the node in the launch file.  Explore the <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox/blob/ros2/launch/online_async_launch.py">online_async_launch.py</a> file to investigate how this can be acheived for your robot.</p>
+</div>
+<p>Run the launch file with,</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source ~/&lt;YOUR_ROS_WS&gt;/install/setup.bash</span>
+<span class="go">ros2 launch example_gz_robot slam.launch.py</span>
+</pre></div>
+</div>
+<p>Intially, there is only a small portion of the map which has been generated (based on what the lidar can observe).</p>
+<a class="reference internal image-reference" href="_images/initial_slam.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/initial_slam.png" style="width: 800px;" /></a>
+<p>Using teleoperation (via <code class="docutils literal notranslate"><span class="pre">teleop_twist_keyboard</span></code>), move the robot around to fill in the map.  The video below shows how SLAM periodically updates and fills in the map based on lidar observations, as well as keeping the pose of the robot well aligned with the world (as witnessed by the strong overlap between the lidar scan and the generated map).  However, pure rotations or fast velocities can lead to poor localisation.</p>
+<a class="reference internal image-reference" href="_images/slam_teleop.gif"><img alt="Animation of robot driving around simulation environment, whilst building a map using SLAM." class="align-center" src="_images/slam_teleop.gif" style="width: 600px;" /></a>
+</section>
+<section id="using-slam-maps">
+<h2>Using SLAM Maps<a class="headerlink" href="#using-slam-maps" title="Permalink to this heading"></a></h2>
+<p>SLAM Toolbox publishes on the <code class="docutils literal notranslate"><span class="pre">/map</span></code> topic, this can be used for 2D autonomous navigation using Nav2 (for path planning).  If you wish to use the map in the future (for localisation), there are two broad options:</p>
+<ol class="arabic simple">
+<li><p>Save the map using the <code class="docutils literal notranslate"><span class="pre">map_saver</span></code> node, and calling the service to save the map (example service call at the bottom of the <a class="reference external" href="https://index.ros.org/p/nav2_map_server/">ros index page</a>, with more details on the <a class="reference external" href="https://docs.nav2.org/configuration/packages/configuring-map-server.html#map-saver-parameters">nav2 wiki</a>).  This map image can be used with AMCL using the same approach as the previous localisation exercise.</p></li>
+<li><p>Use the built in tools provided by SLAM Toolbox, this relies on saving the underlying pose-graph, rather than a rasterised image.  This is a more powerful approach, but takes more effort to setup.  You can find more information <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox?tab=readme-ov-file#localization">on the docs</a>.</p></li>
+</ol>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week09_tut_localisation.html" class="btn btn-neutral float-left" title="Localisation in a Map" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week09_tut_conclusion.html" class="btn btn-neutral float-right" title="Conclusion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

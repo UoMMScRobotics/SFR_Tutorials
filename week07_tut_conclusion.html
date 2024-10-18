@@ -52,7 +52,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Software for Robotics Tutorials</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 07 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 07 | URDF</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_intro.html">Describing Robots using URDF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_joints.html">Adding Joints</a></li>
@@ -60,14 +60,22 @@
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_collisions.html">Adding Collisions and Inertia</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 08 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 08 | Simulations</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_intro.html">Setting Up a Simulation in Gazebo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboxacro.html">Adding Simulation Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboros.html">Linking Gazebo and ROS2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 10 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 09 | Maps and SLAM</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_intro.html">Sensing and Perception for Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_maps.html">Maps and Occupancy Grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_localisation.html">Localisation in a Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_slam.html">SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 10 | Autonomous Navigation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_intro.html">Autonomous Navigation Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_pathplan.html">Adding Path Planning from Nav2</a></li>
@@ -75,7 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_commands.html">Sending Goals to the Robot Navigation Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 11 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 11 | Behaviour Trees</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_intro.html">Behaviour Trees Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_groot.html">Investigating Behaviour Trees with Groot</a></li>
@@ -110,13 +118,15 @@
              
   <section id="conclusion">
 <h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading"></a></h1>
-<p><strong>Topics in this Tutorial</strong>
-* Writing URDF files using XML format .urdf files
-* Using URDF files to describe the physical properties of a robot
-* Describing rigid body poses using <a class="reference external" href="http://wiki.ros.org/urdf/XML/link">links</a> (coordinate frames) and <a class="reference external" href="http://wiki.ros.org/urdf/XML/joint">joints</a> (transformations)
-* Adding visual information through use of <a class="reference external" href="http://wiki.ros.org/urdf/XML/link">links</a>
-* Additional information is available for simulations, such as Collisional and Inertial properties
-* All these properties can be viewed in RVIZ</p>
+<p><strong>Topics in this Tutorial</strong></p>
+<ul class="simple">
+<li><p>Writing URDF files using XML format .urdf files</p></li>
+<li><p>Using URDF files to describe the physical properties of a robot</p></li>
+<li><p>Describing rigid body poses using <a class="reference external" href="http://wiki.ros.org/urdf/XML/link">links</a> (coordinate frames) and <a class="reference external" href="http://wiki.ros.org/urdf/XML/joint">joints</a> (transformations)</p></li>
+<li><p>Adding visual information through use of <a class="reference external" href="http://wiki.ros.org/urdf/XML/link">links</a></p></li>
+<li><p>Additional information is available for simulations, such as Collisional and Inertial properties</p></li>
+<li><p>All these properties can be viewed in RVIZ</p></li>
+</ul>
 <p>A topic which was not covered here was the use of <a class="reference external" href="https://github.com/ros/xacro/wiki">**xacro**</a>.  This functionality enables a urdf to have variables and include other files, this generally makes them easier to edit and easier to read.</p>
 </section>
 

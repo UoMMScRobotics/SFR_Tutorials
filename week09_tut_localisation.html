@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Localisation &mdash; Software for Robotics Tutorials  documentation</title>
+  <title>Localisation in a Map &mdash; Software for Robotics Tutorials  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -24,7 +24,9 @@
       <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SLAM" href="week09_tut_slam.html" />
+    <link rel="prev" title="Maps and Occupancy Grids" href="week09_tut_maps.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +52,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Software for Robotics Tutorials</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 07 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 07 | URDF</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_intro.html">Describing Robots using URDF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_joints.html">Adding Joints</a></li>
@@ -58,14 +60,27 @@
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_collisions.html">Adding Collisions and Inertia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 08 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 08 | Simulations</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_intro.html">Setting Up a Simulation in Gazebo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboxacro.html">Adding Simulation Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboros.html">Linking Gazebo and ROS2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 10 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 09 | Maps and SLAM</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_intro.html">Sensing and Perception for Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_maps.html">Maps and Occupancy Grids</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Localisation in a Map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-the-launch-file">Inspecting the Launch File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-localisation">Using Localisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improve-the-localisation-estimate">Improve the Localisation Estimate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_slam.html">SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 10 | Autonomous Navigation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_intro.html">Autonomous Navigation Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_pathplan.html">Adding Path Planning from Nav2</a></li>
@@ -73,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_commands.html">Sending Goals to the Robot Navigation Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 11 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 11 | Behaviour Trees</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_intro.html">Behaviour Trees Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_groot.html">Investigating Behaviour Trees with Groot</a></li>
@@ -97,7 +112,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="contents.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Localisation</li>
+      <li class="breadcrumb-item active">Localisation in a Map</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -106,14 +121,122 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="localisation">
-<h1>Localisation<a class="headerlink" href="#localisation" title="Permalink to this heading"></a></h1>
+  <section id="localisation-in-a-map">
+<h1>Localisation in a Map<a class="headerlink" href="#localisation-in-a-map" title="Permalink to this heading"></a></h1>
+<p>Picture this, you are walking/driving around and trying to figure out where you are.  You might look at road names, landmarks, signs to other points of interest.  This process of figuring out where you are is called localisation.</p>
+<p>Imagine our robot is in a known environment, with an existing map, it must localise itself in the map to be able to navigate.  For this exercise, a robot will be spawned into the Turtlebot3 simulation environment, and localised against the existing map provided by the map server.</p>
+<section id="inspecting-the-launch-file">
+<h2>Inspecting the Launch File<a class="headerlink" href="#inspecting-the-launch-file" title="Permalink to this heading"></a></h2>
+<p>Once again, before launching any nodes, the launch file will be inspected to understand how it works.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 9</span>def<span class="w"> </span>generate_launch_description():
+<span class="linenos">10</span><span class="w">    </span>ld<span class="w"> </span>=<span class="w"> </span>LaunchDescription()
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="w">    </span>#<span class="w"> </span>Specify<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>package<span class="w"> </span>and<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>xacro<span class="w"> </span>file<span class="w"> </span>in<span class="w"> </span>external<span class="w"> </span>package
+<span class="linenos">13</span><span class="w">    </span>pkg_name<span class="w"> </span>=<span class="w"> </span>&#39;example_gz_robot&#39;
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">    </span>#<span class="w"> </span>Start<span class="w"> </span>simulation
+<span class="hll"><span class="linenos">16</span><span class="w">    </span>launch_sim_world<span class="w"> </span>=<span class="w"> </span>IncludeLaunchDescription(
+</span><span class="hll"><span class="linenos">17</span><span class="w">      </span>PythonLaunchDescriptionSource([os.path.join(
+</span><span class="hll"><span class="linenos">18</span><span class="w">         </span>get_package_share_directory(pkg_name),<span class="w"> </span>&#39;launch&#39;),
+</span><span class="hll"><span class="linenos">19</span><span class="w">         </span>&#39;/simulation_bringup.launch.py&#39;])
+</span><span class="hll"><span class="linenos">20</span><span class="w">      </span>)
+</span></pre></div>
+</div>
+<p>A launch file called <code class="docutils literal notranslate"><span class="pre">simulation_bringup.launch.py</span></code> has been provided for this exercise.  This launch file is included in this portion.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">22</span><span class="w">    </span>#<span class="w"> </span>map<span class="w"> </span>server<span class="w"> </span>node
+<span class="hll"><span class="linenos">23</span><span class="w">    </span>map_subpath<span class="w"> </span>=<span class="w"> </span>&#39;maps/turtlebot3_world.yaml&#39;
+</span><span class="hll"><span class="linenos">24</span><span class="w">    </span>map_yaml_filepath<span class="w"> </span>=<span class="w"> </span>os.path.join(get_package_share_directory(pkg_name),<span class="w"> </span>map_subpath)
+</span><span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">    </span>#<span class="w"> </span>Publishes<span class="w"> </span>a<span class="w"> </span>2D<span class="w"> </span>occupancy<span class="w"> </span>grid<span class="w"> </span>based<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>.pgm<span class="w"> </span>(and<span class="w"> </span>accompanying<span class="w"> </span>.yaml)<span class="w"> </span>file
+<span class="linenos">27</span><span class="w">    </span>node_map_server<span class="w"> </span>=<span class="w"> </span>Node(
+<span class="linenos">28</span><span class="w">        </span>package=&#39;nav2_map_server&#39;,
+<span class="linenos">29</span><span class="w">        </span>executable=&#39;map_server&#39;,
+<span class="linenos">30</span><span class="w">        </span>name=&#39;example_map_server&#39;,
+<span class="linenos">31</span><span class="w">        </span>output=&#39;screen&#39;,
+<span class="hll"><span class="linenos">32</span><span class="w">        </span>parameters=[{&#39;yaml_filename&#39;:<span class="w"> </span>map_yaml_filepath}]<span class="w"> </span>#<span class="w"> </span>add<span class="w"> </span>other<span class="w"> </span>parameters<span class="w"> </span>here<span class="w"> </span>if<span class="w"> </span>required
+</span><span class="linenos">33</span><span class="w">    </span>)
+</pre></div>
+</div>
+<p>This should look familiar from the last exercise.  It simply publishes the map as a ros topic based on the .pgm and .yaml file.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">35</span><span class="w">    </span>#<span class="w"> </span>https://docs.nav2.org/configuration/packages/configuring-amcl.html
+<span class="linenos">36</span><span class="w">    </span>#<span class="w"> </span>AMCL<span class="w"> </span>(Adaptive<span class="w"> </span>Monte<span class="w"> </span>Carlo<span class="w"> </span>Localisation)
+<span class="linenos">37</span><span class="w">    </span>node_amcl<span class="w"> </span>=<span class="w"> </span>Node(
+<span class="linenos">38</span><span class="w">        </span>package=&#39;nav2_amcl&#39;,
+<span class="linenos">39</span><span class="w">        </span>executable=&#39;amcl&#39;,
+<span class="linenos">40</span><span class="w">        </span>name=&#39;amcl&#39;
+<span class="linenos">41</span><span class="w">    </span>)
+</pre></div>
+</div>
+<p>To actually provide the localisation, this exercise uses AMCL (<a class="reference external" href="http://wiki.ros.org/amcl">Adaptive Monte Carlo Localisation</a>).  It uses scan matching to estimate the robot position based on the map and lidar scan data, however, the actual algorithm is an extension of the particle filter.</p>
+<p>The lifecycle manager once again makes life easier for us, ensuring that AMCL will not start without the map being published.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">54</span><span class="w">    </span>#<span class="w"> </span>Rviz<span class="w"> </span>node
+<span class="linenos">55</span><span class="w">    </span>rviz_config_file<span class="w"> </span>=<span class="w"> </span>os.path.join(get_package_share_directory(pkg_name),<span class="w"> </span>&#39;rviz&#39;,<span class="w"> </span>&#39;localisation.rviz&#39;)
+<span class="linenos">56</span><span class="w">    </span>node_rviz<span class="w"> </span>=<span class="w"> </span>Node(
+<span class="linenos">57</span><span class="w">        </span>package=&#39;rviz2&#39;,
+<span class="linenos">58</span><span class="w">        </span>namespace=&#39;&#39;,
+<span class="linenos">59</span><span class="w">        </span>executable=&#39;rviz2&#39;,
+<span class="linenos">60</span><span class="w">        </span>name=&#39;rviz2&#39;,
+<span class="linenos">61</span><span class="w">        </span>arguments=[&#39;-d&#39;,<span class="w"> </span>[rviz_config_file]]
+<span class="linenos">62</span><span class="w">    </span>)
+<span class="linenos">63</span>
+<span class="linenos">64</span>
+<span class="linenos">65</span><span class="w">    </span>#<span class="w"> </span>Add<span class="w"> </span>actions<span class="w"> </span>to<span class="w"> </span>LaunchDescription
+<span class="linenos">66</span><span class="w">    </span>#<span class="w"> </span>Simulation
+<span class="linenos">67</span><span class="w">    </span>ld.add_action(SetParameter(name=&#39;use_sim_time&#39;,<span class="w"> </span>value=True))
+<span class="linenos">68</span><span class="w">    </span>ld.add_action(launch_sim_world)
+<span class="linenos">69</span><span class="w">    </span>#<span class="w"> </span>Localisation
+<span class="linenos">70</span><span class="w">    </span>ld.add_action(node_lifecycle_manager)
+<span class="linenos">71</span><span class="w">    </span>ld.add_action(node_map_server)
+<span class="linenos">72</span><span class="w">    </span>ld.add_action(node_amcl)
+<span class="linenos">73</span><span class="w">    </span>#<span class="w"> </span>Visualisation
+<span class="linenos">74</span><span class="w">    </span>ld.add_action(node_rviz)
+<span class="linenos">75</span><span class="w">    </span>return<span class="w"> </span>ld
+</pre></div>
+</div>
+<p>Finally, we use RViz to see the map, the robot, and sensor data.</p>
+</section>
+<section id="using-localisation">
+<h2>Using Localisation<a class="headerlink" href="#using-localisation" title="Permalink to this heading"></a></h2>
+<p>Run the launch file with,</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source ~/&lt;YOUR_ROS_WS&gt;/install/setup.bash</span>
+<span class="go">ros2 launch example_gz_robot localisation.launch.py</span>
+</pre></div>
+</div>
+<p>Once everything has loaded, you will immediately notice in RViz (and the terminal) that the robot has not been localised in the map at all!  This is because AMCL needs an initial guess, published on the <code class="docutils literal notranslate"><span class="pre">/initialpose</span></code> topic, consisting of a geometry_msgs/msg/PoseWithCovarianceStamped.</p>
+<p>It is diffcult to figure out the coordinates and orientation of the robot in the terminal.  RViz offers a helpful <code class="docutils literal notranslate"><span class="pre">2D</span> <span class="pre">Pose</span> <span class="pre">Estimate</span></code> button, this allows us to put a large green arrow down approximately where the robot is, and set the orientation.  This can be performed multiple times and AMCL will take a new guess each time, just in case the estimates are poor.</p>
+<table class="borderless docutils align-default" style="width: 100%">
+<tbody>
+<tr class="row-odd"><td><a class="reference internal image-reference" href="_images/localisation_pose_estimate.png"><img alt="Using the 2D Pose Estimate button in RViz." class="align-center" src="_images/localisation_pose_estimate.png" style="width: 100%;" /></a>
+</td>
+<td><a class="reference internal image-reference" href="_images/initial_amcl.png"><img alt="The uncertain initial pose estimate by AMCL" class="align-center" src="_images/initial_amcl.png" style="width: 100%;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The image to the right shows the estimate of the robot’s pose given by AMCL, along with the lidar scan in red.  The cluster of green arrows are a visualisation of the particle filter at work.  For the initial guess, the spread of candidate points is large, but as the robot moves around, the localisation estimate will generally improve.</p>
+</section>
+<section id="improve-the-localisation-estimate">
+<h2>Improve the Localisation Estimate<a class="headerlink" href="#improve-the-localisation-estimate" title="Permalink to this heading"></a></h2>
+<p>This portion will have you drive the robot around and observe the improvement (or possible degradation) of the estimated robot pose.  In a terminal window, use the command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 run teleop_twist_keyboard teleop_twist_keyboard</span>
+</pre></div>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Pay attention to the lidar scan, and use that to avoid any obstacles.  The estimate of the robot pose in the map may be poor, so you can not rely on it.  The lidar scan will be relative to the robot, so should always be a good indicator of an imminent collision.</p>
+</div>
+<p>Drive the robot around, and the cluster of green arrows should become more tightly packed together.  This is a visual representation of the confidence in the estimate increasing.  However, you may still notice the odd arrow in certain places, particularly around the central pillars where it might be difficult to distinguish between different pillars.  A clear indication of better localisation comes from the lidar scan, which should overlay very well with the map.</p>
+<p>Once you are happy you have witnessed the power of particle filters for localisation, stop all processes with <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code>, close all terminals, and move on to the next section.</p>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week09_tut_maps.html" class="btn btn-neutral float-left" title="Maps and Occupancy Grids" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week09_tut_slam.html" class="btn btn-neutral float-right" title="SLAM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

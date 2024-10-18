@@ -24,7 +24,9 @@
       <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Maps and Occupancy Grids" href="week09_tut_maps.html" />
+    <link rel="prev" title="Conclusion" href="week08_tut_conclusion.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +52,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Software for Robotics Tutorials</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 07 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 07 | URDF</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_intro.html">Describing Robots using URDF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_joints.html">Adding Joints</a></li>
@@ -58,14 +60,26 @@
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_collisions.html">Adding Collisions and Inertia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 08 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 08 | Simulations</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_intro.html">Setting Up a Simulation in Gazebo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboxacro.html">Adding Simulation Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboros.html">Linking Gazebo and ROS2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 10 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 09 | Maps and SLAM</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sensing and Perception for Navigation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sensor-messages">Sensor Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpretation-of-sensor-data">Interpretation of Sensor data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_maps.html">Maps and Occupancy Grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_localisation.html">Localisation in a Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_slam.html">SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 10 | Autonomous Navigation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_intro.html">Autonomous Navigation Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_pathplan.html">Adding Path Planning from Nav2</a></li>
@@ -73,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_commands.html">Sending Goals to the Robot Navigation Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 11 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 11 | Behaviour Trees</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_intro.html">Behaviour Trees Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_groot.html">Investigating Behaviour Trees with Groot</a></li>
@@ -108,12 +122,34 @@
              
   <section id="sensing-and-perception-for-navigation">
 <h1>Sensing and Perception for Navigation<a class="headerlink" href="#sensing-and-perception-for-navigation" title="Permalink to this heading"></a></h1>
+<p>Robots are nothing without autonomy.  For mobile robotics a core autonomous capability is navigation, being provided a goal pose and being able to maneuver to that desired location.</p>
+<p>This can be performed so-called semi-autonomously, where a human provides the goal, or fully-autonomously where another non-human agent makes the decision on the goal pose (for example, a robot returning to a charging dock when low on battery).</p>
+<p>To successfully navigate, mobile robots rely on extroceptive sensing to perceive the environment around them.  This information then needs to be converted into a form that the robot can make use of.</p>
+<section id="sensor-messages">
+<h2>Sensor Messages<a class="headerlink" href="#sensor-messages" title="Permalink to this heading"></a></h2>
+<p>ROS provides established sensors messages to link common sensors into our robots.  The documentation can be found <a class="reference external" href="https://docs.ros.org/en/humble/p/sensor_msgs/">here</a>.</p>
+<p>For navigation, primarily <a class="reference external" href="https://docs.ros.org/en/humble/p/sensor_msgs/interfaces/msg/LaserScan.html">LaserScan</a> (2D lidar) and <a class="reference external" href="https://docs.ros.org/en/humble/p/sensor_msgs/interfaces/msg/PointCloud2.html">PointCloud2</a> (depth cameras and 3D lidar) are used for situational awareness during navigation.
+These sensors have become incredibly affordable.  If you canvas common robotic platforms you will observe a very common setup of a 2D or 3D lidar for long range obstacle detection and depth cameras for nearby the robot (e.g. looking for clutter on the floor).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can of course define your own custom messages!  This has been the case for radiation sensors, which have their own message format.
+See the <a class="reference external" href="https://research.manchester.ac.uk/files/223331152/ROS_Messages_for_Nuclear_Sensing.pdf">Paper</a> and <a class="reference external" href="https://github.com/EEEManchester/radiation_msgs">GitHub</a></p>
+</div>
+</section>
+<section id="interpretation-of-sensor-data">
+<h2>Interpretation of Sensor data<a class="headerlink" href="#interpretation-of-sensor-data" title="Permalink to this heading"></a></h2>
+<p>For navigation (in 2D) obstacles are represented in a map.  In it’s simplest form, a map is essentially a picture where the colour of the pixels indicates if an area has an obstacles (can’t travel through), is free space (can travel through) or unknown (yet to be observed, may or may not be allowed to travel through).  It is these maps we will concentrate on for the tasks ahead.</p>
+<p>There are other forms of representation, such as the voxel grid, which extends the grid based map idea to voxels (cube shaped cells) in three dimensions.  These voxels also have the same three values of occupied, free, or unknown.</p>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week08_tut_conclusion.html" class="btn btn-neutral float-left" title="Conclusion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week09_tut_maps.html" class="btn btn-neutral float-right" title="Maps and Occupancy Grids" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

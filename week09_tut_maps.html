@@ -24,7 +24,9 @@
       <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Localisation in a Map" href="week09_tut_localisation.html" />
+    <link rel="prev" title="Sensing and Perception for Navigation" href="week09_tut_intro.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +52,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Software for Robotics Tutorials</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 07 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 07 | URDF</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_intro.html">Describing Robots using URDF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_joints.html">Adding Joints</a></li>
@@ -58,14 +60,25 @@
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_collisions.html">Adding Collisions and Inertia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week07_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 08 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 08 | Simulations</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_intro.html">Setting Up a Simulation in Gazebo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboxacro.html">Adding Simulation Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_gazeboros.html">Linking Gazebo and ROS2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week08_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 10 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 09 | Maps and SLAM</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_intro.html">Sensing and Perception for Navigation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Maps and Occupancy Grids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#publishing-an-existing-map-with-ros">Publishing an Existing Map with ROS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_localisation.html">Localisation in a Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_slam.html">SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week09_tut_conclusion.html">Conclusion</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Week 10 | Autonomous Navigation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_intro.html">Autonomous Navigation Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_pathplan.html">Adding Path Planning from Nav2</a></li>
@@ -73,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_commands.html">Sending Goals to the Robot Navigation Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week10_tut_conclusion.html">Conclusion</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Week 11 Synchronous Tutorial</span></p>
+<p class="caption" role="heading"><span class="caption-text">Week 11 | Behaviour Trees</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_intro.html">Behaviour Trees Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week11_tut_groot.html">Investigating Behaviour Trees with Groot</a></li>
@@ -108,12 +121,105 @@
              
   <section id="maps-and-occupancy-grids">
 <h1>Maps and Occupancy Grids<a class="headerlink" href="#maps-and-occupancy-grids" title="Permalink to this heading"></a></h1>
+<p>The navigation stack relies heavily on so-called <a class="reference external" href="https://docs.nav2.org/concepts/index.html#environmental-representation">costmaps</a> (2D grids).  A core component is the “static” map, a representation of the world which can be used as a basis for path planning.  This needs to be provided either as a premade map, or generated in real time using SLAM (Simultaneous Localisation and Mapping).</p>
+<p>Though we will not delve deeper costmaps in this tutorial (that comes when we look at autonomous navigation), we will investigate the most basic map type, the occupancy grid.</p>
+<p>The image below is an example of an occupancy grid image of a simulation environment.  The intention is the world looks like a turtle with the ROS 3x3 logo on it’s back.</p>
+<table class="borderless docutils align-default" style="width: 100%">
+<tbody>
+<tr class="row-odd"><td><a class="reference internal image-reference" href="_images/example_map.png"><img alt="Example map of the Turtlebot3 world." class="align-center" src="_images/example_map.png" style="height: 250px;" /></a>
+</td>
+<td><a class="reference internal image-reference" href="_images/turtlebot_world.png"><img alt="Turtlebot3 world in Gazebo Ignition simulator" class="align-center" src="_images/turtlebot_world.png" style="height: 250px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The map image on the left has three colour values, the light grey repesents free space, the dark grey represents unknown, and black represents an obstacle.  By comparing to the world on the right, a robot inside the walled arena will see the obstacles whereas anywhere outside the arena is unknown.</p>
+<p>Maps used for ROS are stored as .pgm files, with an accompanying .yaml file.  Below is an example of the .yaml file for the turtlebot3_world.pgm shown above, adapted from the Turtlebot3 simulation environment.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>free_thresh:<span class="w"> </span>0.196
+<span class="linenos">2</span>image:<span class="w"> </span>turtlebot3_world.pgm
+<span class="linenos">3</span>negate:<span class="w"> </span>0
+<span class="linenos">4</span>occupied_thresh:<span class="w"> </span>0.65
+<span class="linenos">5</span>origin:
+<span class="linenos">6</span>-<span class="w"> </span>-2.9499999999999993
+<span class="linenos">7</span>-<span class="w"> </span>-2.6499999999999995
+<span class="linenos">8</span>-<span class="w"> </span>0.0
+<span class="linenos">9</span>resolution:<span class="w"> </span>0.05
+</pre></div>
+</div>
+<p>This .yaml file tells ROS what the image is called (<code class="docutils literal notranslate"><span class="pre">turtlebot3_world.pgm</span></code>) and how to convert pixels into metric space.  Resolution states how big a pixel is in metres (<code class="docutils literal notranslate"><span class="pre">`resolution:</span> <span class="pre">0.05`</span></code> is equivalent to 5 cm), and where is the origin of the map (top left pixel) with respect to a global coordinate system (<code class="docutils literal notranslate"><span class="pre">origin:</span> <span class="pre">...</span></code>).  The values <code class="docutils literal notranslate"><span class="pre">free_thresh</span></code> and <code class="docutils literal notranslate"><span class="pre">occupied_thresh</span></code> are merely how to convert the greyscale colours to the three possible states.</p>
+<section id="publishing-an-existing-map-with-ros">
+<h2>Publishing an Existing Map with ROS<a class="headerlink" href="#publishing-an-existing-map-with-ros" title="Permalink to this heading"></a></h2>
+<p>Suppose you have a warehouse, hospital, hotel, or any space which is well known and a robot is deployed in regularly.  There is no need to make map of the entire floor or building every time the robot runs, instead, it is better to load an existing map and publish it.</p>
+<p>To save time, an existing package has been provided.  Please download <a class="reference download internal" download="" href="_downloads/b38bc571cf284d3de9aa71337c6d50fb/example_gz_robot.zip"><code class="xref download docutils literal notranslate"><span class="pre">example_gz_robot.zip</span></code></a>.  We will also be relying on the example_urdf_robot package made in Week 08.  You can download a complete version of that package here: <a class="reference download internal" download="" href="_downloads/2229a0ee6ba25c682774342529069e35/example_urdf_robot.zip"><code class="xref download docutils literal notranslate"><span class="pre">example_urdf_robot.zip</span></code></a>.</p>
+<p>Extract these .zip files to your workspace of choice, perform a <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> and <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">install/setup.bash</span></code> as normal.</p>
+<p>The package consists of a launch file called <code class="docutils literal notranslate"><span class="pre">map_server.launch.py</span></code>, we will explore each part before using it.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">11</span>def<span class="w"> </span>generate_launch_description():
+<span class="linenos">12</span><span class="w">    </span>ld<span class="w"> </span>=<span class="w"> </span>LaunchDescription()
+<span class="linenos">13</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">    </span>#<span class="w"> </span>Specify<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>package<span class="w"> </span>and<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>map<span class="w"> </span>yaml<span class="w"> </span>file
+<span class="hll"><span class="linenos">16</span><span class="w">    </span>pkg_name<span class="w"> </span>=<span class="w"> </span>&#39;example_gz_robot&#39;
+</span><span class="hll"><span class="linenos">17</span><span class="w">    </span>map_subpath<span class="w"> </span>=<span class="w"> </span>&#39;maps/turtlebot3_world.yaml&#39;
+</span><span class="hll"><span class="linenos">18</span><span class="w">    </span>map_yaml_filepath<span class="w"> </span>=<span class="w"> </span>os.path.join(get_package_share_directory(pkg_name),<span class="w"> </span>map_subpath)
+</span></pre></div>
+</div>
+<p>We define the .yaml file of the map we wish to publish.  The .yaml and .pgm files should be in the same directory to avoid any issues.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">20</span><span class="w">    </span>#<span class="w"> </span>map<span class="w"> </span>server<span class="w"> </span>node
+<span class="linenos">21</span><span class="w">    </span>#<span class="w"> </span>Publishes<span class="w"> </span>a<span class="w"> </span>2D<span class="w"> </span>occupancy<span class="w"> </span>grid<span class="w"> </span>based<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>.pgm<span class="w"> </span>(and<span class="w"> </span>accompanying<span class="w"> </span>.yaml)<span class="w"> </span>file
+<span class="hll"><span class="linenos">22</span><span class="w">    </span>node_map_server<span class="w"> </span>=<span class="w"> </span>Node(
+</span><span class="hll"><span class="linenos">23</span><span class="w">        </span>package=&#39;nav2_map_server&#39;,
+</span><span class="hll"><span class="linenos">24</span><span class="w">        </span>executable=&#39;map_server&#39;,
+</span><span class="hll"><span class="linenos">25</span><span class="w">        </span>name=&#39;example_map_server&#39;,
+</span><span class="hll"><span class="linenos">26</span><span class="w">        </span>output=&#39;screen&#39;,
+</span><span class="hll"><span class="linenos">27</span><span class="w">        </span>parameters=[{&#39;yaml_filename&#39;:<span class="w"> </span>map_yaml_filepath}]<span class="w"> </span>#<span class="w"> </span>add<span class="w"> </span>other<span class="w"> </span>parameters<span class="w"> </span>here<span class="w"> </span>if<span class="w"> </span>required
+</span><span class="hll"><span class="linenos">28</span><span class="w">    </span>)
+</span></pre></div>
+</div>
+<p>The map_server node (provided by the <code class="docutils literal notranslate"><span class="pre">nav2_map_server</span></code> package) needs the filepath to the .yaml file as a parameter.  In ROS1 this would be enough, however, in ROS2 the map_server is a <strong>managed</strong> node (see <a class="reference external" href="https://design.ros2.org/articles/node_lifecycle.html">documentation here</a>).  To save us manually changing the state of the node through the command line, we can leverage the <code class="docutils literal notranslate"><span class="pre">lifecycle_manager</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">31</span><span class="w">    </span>#<span class="w"> </span>Lifecycle<span class="w"> </span>Manager<span class="w"> </span>-<span class="w"> </span>makes<span class="w"> </span>handling<span class="w"> </span>the<span class="w"> </span>map<span class="w"> </span>server<span class="w"> </span>less<span class="w"> </span>tricky
+<span class="hll"><span class="linenos">32</span><span class="w">    </span>node_lifecycle_manager<span class="w"> </span>=<span class="w"> </span>Node(
+</span><span class="hll"><span class="linenos">33</span><span class="w">        </span>package=&#39;nav2_lifecycle_manager&#39;,
+</span><span class="hll"><span class="linenos">34</span><span class="w">        </span>executable=&#39;lifecycle_manager&#39;,
+</span><span class="hll"><span class="linenos">35</span><span class="w">        </span>output=&#39;screen&#39;,
+</span><span class="hll"><span class="linenos">36</span><span class="w">        </span>parameters=[{&#39;node_names&#39;:[&#39;example_map_server&#39;],<span class="w"> </span>&#39;autostart&#39;:<span class="w"> </span>True}]<span class="w"> </span>#<span class="w"> </span>add<span class="w"> </span>other<span class="w"> </span>parameters<span class="w"> </span>here<span class="w"> </span>if<span class="w"> </span>required
+</span><span class="hll"><span class="linenos">37</span><span class="w">    </span>)
+</span><span class="linenos">38</span><span class="w"> </span>
+<span class="linenos">39</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span><span class="w">    </span>#<span class="w"> </span>Add<span class="w"> </span>actions<span class="w"> </span>to<span class="w"> </span>LaunchDescription
+<span class="linenos">42</span><span class="w">    </span>ld.add_action(node_lifecycle_manager)
+<span class="linenos">43</span><span class="w">    </span>ld.add_action(node_map_server)
+<span class="linenos">44</span><span class="w">    </span>return<span class="w"> </span>ld
+</pre></div>
+</div>
+<p>This use of the lifecycle node manager becomes very common when using the navigation stack, where a map needs to be published _before_ another node can use it.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source ~/&lt;YOUR_ROS_WS&gt;/install/setup.bash</span>
+<span class="go">ros2 launch example_gz_robot map_server.launch.py</span>
+</pre></div>
+</div>
+<p>In another terminal perform the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source ~/&lt;YOUR_ROS_WS&gt;/install/setup.bash</span>
+<span class="go">ros2 topic list</span>
+</pre></div>
+</div>
+<p>You should see the <code class="docutils literal notranslate"><span class="pre">/map</span></code> topic.  You could echo this to the terminal, but a list of 1, 0, -1 (obstacle, freespace, unknown) is not very helpful!  Instead, let us use RViz to see the map.</p>
+<p>In the same terminal use:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 run rviz2 rviz2</span>
+</pre></div>
+</div>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">/map</span></code> topic and adjust the Durability Policy for the topic to “Transient Local”.  You should see the map in RViz similar to the image below.</p>
+<a class="reference internal image-reference" href="_images/rviz_map.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/rviz_map.png" style="width: 800px;" /></a>
+<p>Now we can publish a map, let’s make use of it!  Close all the windows and terminals and procede to the next section (<a class="reference internal" href="week09_tut_localisation.html"><span class="doc">Localisation in a Map</span></a>).</p>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week09_tut_intro.html" class="btn btn-neutral float-left" title="Sensing and Perception for Navigation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week09_tut_localisation.html" class="btn btn-neutral float-right" title="Localisation in a Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
