@@ -134,11 +134,13 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Using xacro allows for variables to be used (and reused) in urdf files, however, the <code class="docutils literal notranslate"><span class="pre">check_urdf</span></code> helper does not support xacro macros.  To get around this, use the xacro package to convert to a pure .urdf format:</p>
-<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">&lt;WORKSPACE&gt;/install/setup.bash</span>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">&lt;WORKSPACE&gt;/install/setup.bash</span>
 <span class="pre">cd</span> <span class="pre">&lt;WORKSPACE&gt;/src/&lt;PACKAGE&gt;/&lt;URDF_DIR&gt;/</span>
 <span class="pre">check_urdf</span> <span class="pre">&lt;(ros2</span> <span class="pre">run</span> <span class="pre">xacro</span> <span class="pre">xacro</span> <span class="pre">&lt;FILENAME&gt;.urdf.xacro)</span></code></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">xacro</span> <span class="pre">xacro</span></code> command performs all the substitutions, the output is piped into <code class="docutils literal notranslate"><span class="pre">check_urdf</span></code> all in one go.  As xacro needs some ROS functionality it is necessary to source the workspace prior to running <code class="docutils literal notranslate"><span class="pre">xacro</span> <span class="pre">xacro</span></code>.</p>
+</div></blockquote>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">xacro</span> <span class="pre">xacro</span></code> command performs all the substitutions, the output is piped into <code class="docutils literal notranslate"><span class="pre">check_urdf</span></code> all in one go.  As xacro needs some ROS functionality it is necessary to source the workspace prior to running <code class="docutils literal notranslate"><span class="pre">xacro</span> <span class="pre">xacro</span></code>.</p>
 <section id="adding-gazebo-information">
 <h2>Adding Gazebo Information<a class="headerlink" href="#adding-gazebo-information" title="Permalink to this heading"></a></h2>
 <p>At the bottom of <code class="docutils literal notranslate"><span class="pre">/urdf/diff_drive.urdf.xacro</span></code>, on line 213 we include another file called <code class="docutils literal notranslate"><span class="pre">/urdf/example_gazebo.xacro</span></code>.  To make things easier to read, this will contain all the necessary components for simulation.</p>
