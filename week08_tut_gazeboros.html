@@ -205,8 +205,13 @@
 </pre></div>
 </div>
 <p>The list of mapping from ROS msg to ignition msg can be found <a class="reference external" href="https://github.com/gazebosim/ros_gz/tree/humble/ros_gz_bridge">here</a>.  Note that going forward, ignition.msg.Type will become gz.msg.Type for future Gazebo versions - this is likely what you might see in any very up-to-date tutorials.</p>
-<p>The direction is declared with <code class="docutils literal notranslate"><span class="pre">[</span></code> ROS&lt;-GZ (Gazbeo “publishes” into ROS), <code class="docutils literal notranslate"><span class="pre">[</span></code> ROS-&gt;GZ (ROS “publishes” into Gazebo), and <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> ROS&lt;-&gt;GZ (both can publish into each other).  Using a unidirectional approach saves on bandwidth.</p>
-<p>The line <code class="docutils literal notranslate"><span class="pre">'/model/gz_example_robot/odometry'</span> <span class="pre">+</span> <span class="pre">'&#64;nav_msgs/msg/Odometry'</span>&#160;&#160;&#160;&#160; <span class="pre">+</span> <span class="pre">'['</span> <span class="pre">+</span> <span class="pre">'ignition.msgs.Odometry'</span></code>, therefore translates to a single combined string <code class="docutils literal notranslate"><span class="pre">'/model/gz_example_robot/odometry&#64;nav_msgs/msg/Odometry[ignition.msgs.Odometry'</span></code>, where odometry from gazebo is pushed into a ROS topic, but not the other way around.</p>
+<p>The direction is declared with:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[</span></code> ROS&lt;-GZ (Gazbeo “publishes” into ROS)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">]</span></code> ROS-&gt;GZ (ROS “publishes” into Gazebo)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code> ROS&lt;-&gt;GZ (both can publish into each other)</p></li>
+</ul>
+<p>Using a unidirectional approach (square brackets) saves on bandwidth.  The line <code class="docutils literal notranslate"><span class="pre">'/model/gz_example_robot/odometry'</span> <span class="pre">+</span> <span class="pre">'&#64;nav_msgs/msg/Odometry'</span>&#160;&#160;&#160;&#160; <span class="pre">+</span> <span class="pre">'['</span> <span class="pre">+</span> <span class="pre">'ignition.msgs.Odometry'</span></code>, therefore translates to a single combined string <code class="docutils literal notranslate"><span class="pre">'/model/gz_example_robot/odometry&#64;nav_msgs/msg/Odometry[ignition.msgs.Odometry'</span></code>, where odometry from gazebo is pushed into a ROS topic, but not the other way around.</p>
 <p>The “remappings” decide what the topics names will be in ROS (e.g. just <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>).</p>
 </section>
 <section id="using-ros-functionality">
