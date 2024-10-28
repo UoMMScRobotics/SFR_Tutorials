@@ -200,7 +200,7 @@
 <p>There are two <em>links</em> (think of these as seperate coordinate frames), connected by a single fixed <em>joint</em>.  The child link <code class="docutils literal notranslate"><span class="pre">lidar_link</span></code> is 0.3 m (30 cm) in the positive z direction compared to the parent link <code class="docutils literal notranslate"><span class="pre">base_link</span></code>.</p>
 <section id="inspecting-the-urdf">
 <h3>Inspecting the URDF<a class="headerlink" href="#inspecting-the-urdf" title="Permalink to this heading"></a></h3>
-<p>It is incredibly easy to create a typo when writing in &lt;tags&gt;&lt;/tags&gt;.  Therefore, always check for errors using automated tools.  There are xml validators/checkers available online, however, ROS provides a urdf checker.  Navigate to where the .urdf file is and run the <code class="docutils literal notranslate"><span class="pre">`check_urdf</span> <span class="pre">/path_to_file/name_of_file.urdf`</span></code>.</p>
+<p>It is incredibly easy to create a typo when writing in &lt;tags&gt;&lt;/tags&gt;.  Therefore, always check for errors using automated tools.  There are xml validators/checkers available online, however, ROS provides a urdf checker.  Navigate to where the .urdf file is and run the <code class="docutils literal notranslate"><span class="pre">check_urdf</span> <span class="pre">/path_to_file/name_of_file.urdf</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">check_urdf ./src/example_urdf_description/urdf/diff_drive.urdf</span>
 </pre></div>
