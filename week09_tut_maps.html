@@ -192,7 +192,11 @@
 <span class="linenos">44</span><span class="w">    </span>return<span class="w"> </span>ld
 </pre></div>
 </div>
-<p>This use of the lifecycle node manager becomes very common when using the navigation stack, where a map needs to be published _before_ another node can use it.</p>
+<p>This use of the lifecycle node manager becomes very common when using the navigation stack, where a map needs to be published _before_ another node can use it. For Lifecycle manager to work correcty we need to install Nav2, using the command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install ros-&lt;ros2-distro&gt;-navigation2</span>
+</pre></div>
+</div>
+<p>To run the map server use:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source ~/&lt;YOUR_ROS_WS&gt;/install/setup.bash</span>
 <span class="go">ros2 launch example_gz_robot map_server.launch.py</span>
 </pre></div>
