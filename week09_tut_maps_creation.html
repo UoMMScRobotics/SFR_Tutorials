@@ -118,7 +118,7 @@
 <h1>Maps creations<a class="headerlink" href="#maps-creations" title="Permalink to this heading"></a></h1>
 <p>In the previous part of this tutorial you have been shown how to use existing map of an environment and how to create one by driving around in simulated world. Here we will show you how to create and import map into gazebo from nothing.</p>
 <p>This skill is useful for example if you want to quickly test your robot in a new map or you collected LIDAR scan of real environment and you want to have in your Gazebo for testing.</p>
-<p>Generally there are few ways you can go about it:</p>
+<p>Generally there are few ways you can go about it</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Model your environment as .sdf</p></li>
@@ -152,7 +152,7 @@
 </section>
 <section id="create-yaml-and-pgm-file">
 <h1>Create .yaml and .pgm file<a class="headerlink" href="#create-yaml-and-pgm-file" title="Permalink to this heading"></a></h1>
-<p>the .YAML file contains information which allows determination of size of the map (i.e. length of each pixel). While we could do it manually it is a lot more convinent to do so using a script. Please download makeROSmap script and put it in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> directory. Open terminal in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type:</p>
+<p>the .YAML file contains information which allows determination of size of the map (i.e. length of each pixel). While we could do it manually it is a lot more convinent to do so using a script. Please download <a class="reference external" href="../../ros_ws/src/MakeROSMap.py">Download script</a> script and put it in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> directory. Open terminal in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type:</p>
 <p>This will open interactive command-line tool where you have to type the following:</p>
 <p>and press <em>Enter</em></p>
 <p>Now we have to select two x-coordinates and two Y coordinates for package to measure dimension. For x coordinate we want to select bottom of letter ‘R’ and ‘S’ as highlighted in picture below with red dots.</p>
@@ -165,6 +165,11 @@
 <p>and press <em>Enter</em>. then for question about the new name we just type:</p>
 <p>and press <em>Enter</em> twice. We should know see in Nautilus two new files being added, custom_map.pgm and custom_map.yaml, both needed by ROS.</p>
 <a class="reference internal image-reference" href="_images/Files_Ready.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/Files_Ready.png" style="width: 800px;" /></a>
+</section>
+<section id="create-stl-file">
+<h1>Create .stl file<a class="headerlink" href="#create-stl-file" title="Permalink to this heading"></a></h1>
+<p>Now that we have map file we can use in map server, we also need to create assosciated .stl file for usage in Gazebo. STL files are 3D graphical files (you can find more info ‘here &lt;<a class="reference external" href="https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html">https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html</a>&gt;’ _). So far we have 2D map only, we will create 3D equivalent by simply extruding walls from exisitng map. To do so we will use ‘map2gazebo &lt;<a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">https://github.com/Adlink-ROS/map2gazebo</a>&gt;’ _ repository. To install follow the instruction from the repository. After installation we will be using offline instructions. Thus open new terminal in  <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type in:</p>
+<p>This should create custom_map.stl file which we can use in gazebo</p>
 </section>
 
 
