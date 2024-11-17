@@ -129,7 +129,7 @@
 <p>In SfR module only third method is explored. In this method following steps are necessary</p>
 <ul class="simple">
 <li><p>Draw your map as .pgm in your favourite image creation tool (here GIMP will be used)</p></li>
-<li><p>Create assosciated .yaml file (this can be done automatically using Python script)</p></li>
+<li><p>Create assosciated .yaml and .pgn file (this can be done automatically using Python script)</p></li>
 <li><p>Create map .stl file using ‘map2gazebo &lt;<a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">https://github.com/Adlink-ROS/map2gazebo</a>&gt;’ _ package</p></li>
 <li><p>Import into gazebo</p></li>
 </ul>
@@ -139,12 +139,32 @@
 <p>If you look inside .pgm file you will observe it is simply greyscale image with empty spaces represented by white colour and taken by black colour (for the sake of simplicty we will ignore unknown spaces, you are not required to know how to deal with those).</p>
 <p>We can easily create such a picture using any graphical editing software. Here we will use GIMP. You can install GIMP by running:</p>
 <p>Start gimp and you should see:</p>
-<p>click <em>file</em> &gt; <em>new</em></p>
-<p>You should see:</p>
+<a class="reference internal image-reference" href="_images/gimp_initial.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/gimp_initial.png" style="width: 800px;" /></a>
+<p>click <em>file</em> &gt; <em>new</em> You should see:</p>
+<a class="reference internal image-reference" href="_images/new_image_window.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/new_image_window.png" style="width: 800px;" /></a>
 <p>just click <em>ok</em> to accept the default settings. You can now draw a simple map using paintbrush tool as highlighted in picture below.</p>
+<a class="reference internal image-reference" href="_images/blank_image.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/blank_image.png" style="width: 800px;" /></a>
 <p>Just write ROS like so:</p>
-<p>click <em>file</em> &gt; <em>save</em> and save it in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> as custom_map.xcf. We also need to export to .pgm. to do this click <em>file</em> &gt; <em>export</em>, Change file extension to <em>.pgm</em> like so:</p>
+<a class="reference internal image-reference" href="_images/ROS_written.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/ROS_written.png" style="width: 800px;" /></a>
+<p>click <em>file</em> &gt; <em>save</em> and save it in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> as custom_map.xcf. We also need to export to .png. to do this click <em>file</em> &gt; <em>export</em>, Change file extension to <em>.png</em> like so:</p>
+<a class="reference internal image-reference" href="_images/Saving.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/Saving.png" style="width: 800px;" /></a>
 <p>Click <em>export</em> then <em>export</em> again in the pop-up window. This completes steps 1</p>
+</section>
+<section id="create-yaml-and-pgm-file">
+<h1>Create .yaml and .pgm file<a class="headerlink" href="#create-yaml-and-pgm-file" title="Permalink to this heading"></a></h1>
+<p>the .YAML file contains information which allows determination of size of the map (i.e. length of each pixel). While we could do it manually it is a lot more convinent to do so using a script. Please download makeROSmap script and put it in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> directory. Open terminal in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type:</p>
+<p>This will open interactive command-line tool where you have to type the following:</p>
+<p>and press <em>Enter</em></p>
+<p>Now we have to select two x-coordinates and two Y coordinates for package to measure dimension. For x coordinate we want to select bottom of letter ‘R’ and ‘S’ as highlighted in picture below with red dots.</p>
+<a class="reference internal image-reference" href="_images/ROS_coordinates_x.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/ROS_coordinates_x.png" style="width: 800px;" /></a>
+<p>This does not have to be exact right. Once two x-coordinates are selected you should type</p>
+<p>and press <em>Enter</em></p>
+<p>To indicate we want this distance to be 4 meters. then the same with indicate Y-coordinates this time top and bottom of R as indicated in picture below.</p>
+<a class="reference internal image-reference" href="_images/ROS_coordinates_y.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/ROS_coordinates_y.png" style="width: 800px;" /></a>
+<p>We also type:</p>
+<p>and press <em>Enter</em>. then for question about the new name we just type:</p>
+<p>and press <em>Enter</em> twice. We should know see in Nautilus two new files being added, custom_map.pgm and custom_map.yaml, both needed by ROS.</p>
+<a class="reference internal image-reference" href="_images/Files_Ready.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/Files_Ready.png" style="width: 800px;" /></a>
 </section>
 
 
