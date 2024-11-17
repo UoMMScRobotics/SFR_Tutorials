@@ -73,11 +73,13 @@
 <li class="toctree-l1"><a class="reference internal" href="week09_tut_maps.html">Maps and Occupancy Grids</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week09_tut_localisation.html">Localisation in a Map</a></li>
 <li class="toctree-l1"><a class="reference internal" href="week09_tut_slam.html">SLAM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Maps creations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#drawing-the-map">Drawing the map</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#create-yaml-and-pgm-file">Create .yaml and .pgm file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#create-stl-file">Create .stl file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#importing-into-gazebo">Importing into Gazebo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Maps creations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-the-map">Drawing the map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-yaml-and-pgm-file">Create .yaml and .pgm file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-stl-file">Create .stl file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-into-gazebo">Importing into Gazebo</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="week09_tut_conclusion.html">Conclusion</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Week 10 | Autonomous Navigation</span></p>
@@ -138,9 +140,8 @@
 <li><p>Create map .stl file using ‘map2gazebo &lt;<a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">https://github.com/Adlink-ROS/map2gazebo</a>&gt;’ _ package</p></li>
 <li><p>Import into gazebo</p></li>
 </ul>
-</section>
 <section id="drawing-the-map">
-<h1>Drawing the map<a class="headerlink" href="#drawing-the-map" title="Permalink to this heading"></a></h1>
+<h2>Drawing the map<a class="headerlink" href="#drawing-the-map" title="Permalink to this heading"></a></h2>
 <p>If you look inside .pgm file you will observe it is simply greyscale image with empty spaces represented by white colour and taken by black colour (for the sake of simplicty we will ignore unknown spaces, you are not required to know how to deal with those).</p>
 <p>We can easily create such a picture using any graphical editing software. Here we will use GIMP. You can install GIMP by running:</p>
 <p>Start gimp and you should see:</p>
@@ -156,7 +157,7 @@
 <p>Click <em>export</em> then <em>export</em> again in the pop-up window. This completes steps 1</p>
 </section>
 <section id="create-yaml-and-pgm-file">
-<h1>Create .yaml and .pgm file<a class="headerlink" href="#create-yaml-and-pgm-file" title="Permalink to this heading"></a></h1>
+<h2>Create .yaml and .pgm file<a class="headerlink" href="#create-yaml-and-pgm-file" title="Permalink to this heading"></a></h2>
 <p>the .YAML file contains information which allows determination of size of the map (i.e. length of each pixel). While we could do it manually it is a lot more convinent to do so using a script. Please download <a class="reference external" href="../../ros_ws/src/MakeROSMap.py">script</a> and put it in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> directory. Open terminal in <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type:</p>
 <p>This will open interactive command-line tool where you have to type the following:</p>
 <p>and press <em>Enter</em></p>
@@ -172,12 +173,12 @@
 <a class="reference internal image-reference" href="_images/Files_Ready.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/Files_Ready.png" style="width: 800px;" /></a>
 </section>
 <section id="create-stl-file">
-<h1>Create .stl file<a class="headerlink" href="#create-stl-file" title="Permalink to this heading"></a></h1>
+<h2>Create .stl file<a class="headerlink" href="#create-stl-file" title="Permalink to this heading"></a></h2>
 <p>Now that we have map file we can use in map server, we also need to create assosciated .stl file for usage in Gazebo. STL files are 3D graphical files (you can find more info ‘here &lt;<a class="reference external" href="https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html">https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html</a>&gt;’ _). So far we have 2D map only, we will create 3D equivalent by simply extruding walls from exisitng map. To do so we will use ‘map2gazebo &lt;<a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">https://github.com/Adlink-ROS/map2gazebo</a>&gt;’ _ repository. To install follow the instruction from the repository. After installation we will be using offline instructions. Thus open new terminal in  <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type in:</p>
 <p>This should create custom_map.stl file which we can use in gazebo</p>
 </section>
 <section id="importing-into-gazebo">
-<h1>Importing into Gazebo<a class="headerlink" href="#importing-into-gazebo" title="Permalink to this heading"></a></h1>
+<h2>Importing into Gazebo<a class="headerlink" href="#importing-into-gazebo" title="Permalink to this heading"></a></h2>
 <p>To import into gazebo, first copy custom_map.stl into <code class="docutils literal notranslate"><span class="pre">meshes</span></code> folder (just to keep your folder clean). Then, we need .sdf file. for the sake of this tutorial you don’t need to know or understand .sdf files but syntax should be familar to you as they are similar to URDF files. Download .sdf file from <a class="reference external" href=".../../ros_ws/src/example_gz_robot/worlds/model.sdf">here</a> and put it inside <code class="docutils literal notranslate"><span class="pre">worlds</span></code> folder. In essence this file tells gazebo where to look for STL file as well as some basic properties of it. In lines outlined below, we need to define the name of our custom stl file:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="w">            </span><span class="nt">&lt;uri&gt;</span>model://custom_map.stl<span class="nt">&lt;/uri&gt;</span>
 </pre></div>
@@ -192,6 +193,7 @@
 </div>
 <p>with</p>
 <p>This just tells launch file to look for new sdf file. Now you can run the SLAM demonstration with new map!</p>
+</section>
 </section>
 
 
