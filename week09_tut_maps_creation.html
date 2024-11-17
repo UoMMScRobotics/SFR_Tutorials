@@ -137,7 +137,7 @@
 <ul class="simple">
 <li><p>Draw your map as .pgm in your favourite image creation tool (here GIMP will be used)</p></li>
 <li><p>Create assosciated .yaml and .pgn file (this can be done automatically using Python script)</p></li>
-<li><p>Create map .stl file using ‘map2gazebo &lt;<a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">https://github.com/Adlink-ROS/map2gazebo</a>&gt;’ _ package</p></li>
+<li><p>Create map .stl file using <a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">map2gazebo</a> package</p></li>
 <li><p>Import into gazebo</p></li>
 </ul>
 <section id="drawing-the-map">
@@ -164,26 +164,35 @@
 <p>Now we have to select two x-coordinates and two Y coordinates for package to measure dimension. For x coordinate we want to select bottom of letter ‘R’ and ‘S’ as highlighted in picture below with red dots.</p>
 <a class="reference internal image-reference" href="_images/ROS_coordinates_x.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/ROS_coordinates_x.png" style="width: 800px;" /></a>
 <p>This does not have to be exact right. Once two x-coordinates are selected you should type</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">4</span>
+</pre></div>
+</div>
 <p>and press <em>Enter</em></p>
-<p>To indicate we want this distance to be 4 meters. then the same with indicate Y-coordinates this time top and bottom of R as indicated in picture below.</p>
+<p>To indicate we want this distance to be 4 meters. then to indicate Y-coordinates top and bottom of R should be marked as outlined below.</p>
 <a class="reference internal image-reference" href="_images/ROS_coordinates_y.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/ROS_coordinates_y.png" style="width: 800px;" /></a>
 <p>We also type:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">4</span>
+</pre></div>
+</div>
 <p>and press <em>Enter</em>. then for question about the new name we just type:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">custom_map</span>
+</pre></div>
+</div>
 <p>and press <em>Enter</em> twice. We should know see in Nautilus two new files being added, custom_map.pgm and custom_map.yaml, both needed by ROS.</p>
 <a class="reference internal image-reference" href="_images/Files_Ready.png"><img alt="RViz screen capture of a published map." class="align-center" src="_images/Files_Ready.png" style="width: 800px;" /></a>
 </section>
 <section id="create-stl-file">
 <h2>Create .stl file<a class="headerlink" href="#create-stl-file" title="Permalink to this heading"></a></h2>
-<p>Now that we have map file we can use in map server, we also need to create assosciated .stl file for usage in Gazebo. STL files are 3D graphical files (you can find more info ‘here &lt;<a class="reference external" href="https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html">https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html</a>&gt;’ _). So far we have 2D map only, we will create 3D equivalent by simply extruding walls from exisitng map. To do so we will use ‘map2gazebo &lt;<a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">https://github.com/Adlink-ROS/map2gazebo</a>&gt;’ _ repository. To install follow the instruction from the repository. After installation we will be using offline instructions. Thus open new terminal in  <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type in:</p>
+<p>Now that we have map file we can use in map server, we also need to create assosciated .stl file for usage in Gazebo. STL files are 3D graphical files (you can find more info <a class="reference external" href="https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html">here</a>). So far we have 2D map only, we will create 3D equivalent by simply extruding walls from exisitng map. To do so we will use <a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">map2gazebo</a> repository. To install follow the instruction from the repository. After installation we will be using offline instructions. Thus open new terminal in  <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/world/</span></code> folder and type in:</p>
 <p>This should create custom_map.stl file which we can use in gazebo</p>
 </section>
 <section id="importing-into-gazebo">
 <h2>Importing into Gazebo<a class="headerlink" href="#importing-into-gazebo" title="Permalink to this heading"></a></h2>
 <p>To import into gazebo, first copy custom_map.stl into <code class="docutils literal notranslate"><span class="pre">meshes</span></code> folder (just to keep your folder clean). Then, we need .sdf file. for the sake of this tutorial you don’t need to know or understand .sdf files but syntax should be familar to you as they are similar to URDF files. Download .sdf file from <a class="reference external" href=".../../ros_ws/src/example_gz_robot/worlds/model.sdf">here</a> and put it inside <code class="docutils literal notranslate"><span class="pre">worlds</span></code> folder. In essence this file tells gazebo where to look for STL file as well as some basic properties of it. In lines outlined below, we need to define the name of our custom stl file:</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="w">            </span><span class="nt">&lt;uri&gt;</span>model://custom_map.stl<span class="nt">&lt;/uri&gt;</span>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">20</span><span class="w">            </span><span class="nt">&lt;uri&gt;</span>model://custom_map.stl<span class="nt">&lt;/uri&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="w">            </span><span class="nt">&lt;uri&gt;</span>model://custom_map.stl<span class="nt">&lt;/uri&gt;</span>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos">28</span><span class="w">            </span><span class="nt">&lt;uri&gt;</span>model://custom_map.stl<span class="nt">&lt;/uri&gt;</span>
 </pre></div>
 </div>
 <p>Then we have to tell our <em>example_gz_robot</em> package to use our sdf file, as well as that it needs to install our new map.</p>
@@ -192,6 +201,9 @@
 </pre></div>
 </div>
 <p>with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sdf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_package_share_directory</span><span class="p">(</span><span class="s1">&#39;example_gz_robot&#39;</span><span class="p">),</span> <span class="s1">&#39;worlds&#39;</span><span class="p">,</span> <span class="s1">&#39;model.sdf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>This just tells launch file to look for new sdf file. Now you can run the SLAM demonstration with new map!</p>
 </section>
 </section>
