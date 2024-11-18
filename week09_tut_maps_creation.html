@@ -199,6 +199,9 @@
 <section id="create-stl-file">
 <h2>Create .stl file<a class="headerlink" href="#create-stl-file" title="Permalink to this heading"></a></h2>
 <p>Now that we have map file we can use in map server, we also need to create assosciated .stl file for usage in Gazebo. STL files are 3D graphical files (you can find more info <a class="reference external" href="https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html">here</a>). So far we have 2D map only, we will create 3D equivalent by simply extruding walls from exisitng map. To do so we will use <a class="reference external" href="https://github.com/Adlink-ROS/map2gazebo">map2gazebo</a> repository. To install follow the installation instruction from the repository. After installation we will be using offline instructions. Thus open new terminal in  <code class="docutils literal notranslate"><span class="pre">.../example_gz_robot/worlds/</span></code> folder and type in:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 ~/map2gz_ros2_ws/src/map2gazebo/map2gazebo/map2gazebo_offline.py --map_dir custom_map.pgm --export_dir .</span>
+</pre></div>
+</div>
 <p>This should create custom_map.stl file which we can use in gazebo</p>
 </section>
 <section id="importing-into-gazebo">
