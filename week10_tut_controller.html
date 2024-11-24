@@ -128,11 +128,11 @@
   <section id="adding-a-controller-from-nav2">
 <h1>Adding a Controller from Nav2<a class="headerlink" href="#adding-a-controller-from-nav2" title="Permalink to this heading"></a></h1>
 <p>As stated previously, the <code class="docutils literal notranslate"><span class="pre">Controller</span></code> is the magic that gets a robot to move, and governs a lot of the behaviour of how it navigates.  It is also the most fiddly thing that will require tuning on a real robot to work reliably.</p>
-<p>For a full list of <code class="docutils literal notranslate"><span class="pre">Controllers</span></code> available, visit the Nav 2 Controller <a class="reference external" href="https://navigation.ros.org/plugins/index.html#controllers">Documentation</a>.</p>
+<p>For a full list of <code class="docutils literal notranslate"><span class="pre">Controllers</span></code> available, visit the Nav 2 Controller <a class="reference external" href="https://docs.nav2.org/plugins/index.html#controllers">Documentation</a>.</p>
 <section id="the-controller">
 <h2>The Controller<a class="headerlink" href="#the-controller" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">Controller</span></code> monitors the robot’s state (velocity, pose), the given path, and sensor measurements to compute velocity commands that lead to progress along the path.</p>
-<p>Once again we have list of “plugins” to choose from, allowing us flexibility over what controller architecture to use.  In fact, you can write your <a class="reference external" href="https://navigation.ros.org/plugin_tutorials/index.html">own controller</a> (and planner)!</p>
+<p>Once again we have list of “plugins” to choose from, allowing us flexibility over what controller architecture to use.  In fact, you can write your <a class="reference external" href="https://docs.nav2.org/plugin_tutorials/index.html">own controller</a> (and planner)!</p>
 <p>For this task we will stick with <code class="docutils literal notranslate"><span class="pre">DWB</span></code> planner, which is the general default choice.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -146,13 +146,13 @@
 </div>
 <p>As mentioned, these <code class="docutils literal notranslate"><span class="pre">Controllers</span></code> can be tuned or altered to provide the behaviour you desire (e.g. how faithfully should it stick to the global path).  It is not possible to exhaustively cover this tuning for every controller here, but most provide a tuning guide of sorts.  For generic advice, please take a look at</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://navigation.ros.org/tuning/index.html">Nav 2 Tuning Guide</a></p></li>
+<li><p><a class="reference external" href="https://docs.nav2.org/tuning/index.html">Nav 2 Tuning Guide</a></p></li>
 <li><p><a class="reference external" href="http://wiki.ros.org/navigation/Tutorials/Navigation%20Tuning%20Guide">ROS 1 Basic Tuning Guide</a></p></li>
 <li><p><a class="reference external" href="https://kaiyuzheng.me/documents/navguide.pdf">Academic Paper on Tuning in ROS 1</a></p></li>
 </ul>
 <section id="writing-the-controller-config-file">
 <h3>Writing the Controller Config File<a class="headerlink" href="#writing-the-controller-config-file" title="Permalink to this heading"></a></h3>
-<p>The format of the configuration is taken from the <a class="reference external" href="https://navigation.ros.org/configuration/packages/configuring-controller-server.html#configuring-controller-server">controller documentation</a>.  It consists of general controller parameters, but controller plugin specific parameters can also be passed.  For DWB some of these parameters can be <a class="reference external" href="https://navigation.ros.org/configuration/packages/dwb-params/controller.html">found here</a>.  An example config file for the <code class="docutils literal notranslate"><span class="pre">DWB</span></code> controller would look like the file below.  Copy this example into a file called <code class="docutils literal notranslate"><span class="pre">controller.yaml</span></code> in the <code class="docutils literal notranslate"><span class="pre">config</span></code> directory.</p>
+<p>The format of the configuration is taken from the <a class="reference external" href="https://docs.nav2.org/configuration/packages/configuring-controller-server.html#configuring-controller-server">controller documentation</a>.  It consists of general controller parameters, but controller plugin specific parameters can also be passed.  For DWB some of these parameters can be <a class="reference external" href="https://docs.nav2.org/configuration/packages/dwb-params/controller.html">found here</a>.  An example config file for the <code class="docutils literal notranslate"><span class="pre">DWB</span></code> controller would look like the file below.  Copy this example into a file called <code class="docutils literal notranslate"><span class="pre">controller.yaml</span></code> in the <code class="docutils literal notranslate"><span class="pre">config</span></code> directory.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>controller_server:
 <span class="linenos"> 2</span><span class="w">  </span>ros__parameters:
 <span class="linenos"> 3</span><span class="w">    </span>use_sim_time:<span class="w"> </span>True
