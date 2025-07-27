@@ -12,6 +12,8 @@ Software for Robotics Tutorials
    The contents will be updated to Jazzy and the entire content will be unified in the same page
    https://ros2-tutorial.readthedocs.io/en/latest/.
 
+   The achived version can be accessed at https://uommscrobotics.github.io/SFR_Tutorials_2023_2025/
+
 This repo contains exercises and materials for EEEN60021 Software For Robotics which follow on the work by Dr Murilo M. Marinho (https://ros2-tutorial.readthedocs.io/en/latest/index.html).
 
 
