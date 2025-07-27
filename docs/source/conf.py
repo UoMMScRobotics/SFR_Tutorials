@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 # Try to have the index landing page clean.
-master_doc = "contents"
+master_doc = "index"
 
 project = 'Software for Robotics Tutorials'
 copyright = '2024, Andy West'
