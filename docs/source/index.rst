@@ -1,9 +1,10 @@
+These tutorial have been phased out
+===================================
 
-.. important::
+Starting with the 2025-26 MSc Robotics cohort, these tutorials have been phased out. 
 
-   In 2025-26 these tutorials have been phased out. The entire content of this unit should be accessed at
-   https://ros2-tutorial.readthedocs.io/en/latest/.
+The entire content for this unit must be accessed at https://ros2-tutorial.readthedocs.io/en/latest/.
 
 .. seealso::
 
-   The archived version of these tutorials can be accessed at https://uommscrobotics.github.io/SFR_Tutorials_2023_2025/
+   The archived version up to the 2024-2025 MSc Robotics cohort is available at https://uommscrobotics.github.io/SFR_Tutorials_2023_2025/
